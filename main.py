@@ -68,7 +68,7 @@ def main():
             metric_name='Accuracy',
             save_path='results/plots/accuracy_curve.png'
         )   
-        logs = {"train_loss": train_losses, "val_loss": val_losses}
+        logs = {"train_loss": train_losses, "val_loss": val_losses, "train_accuracy": [acc_train]*args.epochs, "val_accuracy": [acc_val]*args.epochs}
         save_logs(logs, file_path="results/logs/training_logs.txt")
         print("Entraînement terminé.")
 
