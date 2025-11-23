@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 import librosa
 
-DATASET_DIR = "fma_small"
-TRACKS_CSV = "metadata/tracks.csv"
-OUTPUT_FEATURES = "mel_specs.npy"
-OUTPUT_LABELS = "labels.npy"
+DATASET_DIR = "dataset/metadata/fma_small"
+TRACKS_CSV = "dataset/metadata/tracks.csv"
+OUTPUT_FEATURES = "dataset/data/mel_specs.npy"
+OUTPUT_LABELS = "dataset/data/labels.npy"
 
 SR = 22050
 N_MELS = 128
@@ -85,7 +85,3 @@ def preprocess_dataset():
     print("Préprocessing terminé.")
     print("Shape mel_specs :", mel_specs.shape)
     print("Shape labels :", labels.shape)
-
-
-if __name__ == "__main__":
-    preprocess_dataset()

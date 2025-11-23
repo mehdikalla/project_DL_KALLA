@@ -1,0 +1,16 @@
+# Ignorer les fichiers générés par le script
+results/plots/
+results/logs/
+
+# Ignorer les fichiers de données brutes
+dataset/metadata/tracks.csv
+dataset/metadata/fma_small/
+
+dataset/data/mel_specs.npy
+dataset/data/labels.npy
+
+# Ignorer les fichiers de cache Python
+utils/__pycache__/
+dataset/__pycache__/
+models/__pycache__/
+networks/__pycache__/

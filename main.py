@@ -1,9 +1,9 @@
-import argparse
-import torch
 import os
+import torch
+import argparse
 
 from networks.baseline import CNNet
-from networks.improved import ImprovedCNNet  # ton modèle amélioré
+from networks.improved import ResNet  
 from utils.visualization import plot_loss_curve
 from utils.metrics import save_logs
 from dataset.preprocessing import preprocess_dataset
@@ -13,7 +13,7 @@ def get_model(model_name, device):
     if model_name == "baseline":
         return CNNet(device=device)
     elif model_name == "improved":
-        return ImprovedCNNet(device=device)
+        return ResNet(device=device)
     else:
         raise ValueError(f"Modèle inconnu : {model_name}")
 
@@ -29,8 +29,8 @@ def main():
         "--model", type=str, choices=["baseline", "improved"], default="baseline",
         help="Choix du modèle"
     )
-    parser.add_argument("--features", type=str, default="mel_specs.npy")
-    parser.add_argument("--labels", type=str, default="labels.npy")
+    parser.add_argument("--features", type=str, default="dataset/data/mel_specs.npy")
+    parser.add_argument("--labels", type=str, default="dataset/data/labels.npy")
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--epochs", type=int, default=20)
     parser.add_argument("--max_length", type=int, default=128)

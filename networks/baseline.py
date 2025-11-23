@@ -3,8 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from models.cnn import CNN
 from dataset.data_loader import get_dataloaders
-from utils.metrics import accuracy, confusion_matrix, save_logs
-from utils.visualization import plot_loss_curve, plot_metrics_curve
+from utils.metrics import accuracy
 
 class CNNet():
     def __init__(self, device):
@@ -24,7 +23,7 @@ class CNNet():
 
     def train(self, num_epochs):
         train_losses, val_losses = [], []
-
+        Y_true, Y_pred = [], []
         for epoch in range(num_epochs):
 
             # --------- Entraînement ---------
@@ -38,22 +37,32 @@ class CNNet():
                 loss = self.criterion(outputs, labels)
                 loss.backward()
                 self.optimizer.step()
-
                 batch_losses.append(loss.item())
+                Y_true.extend(labels.cpu().numpy())
+                Y_pred.extend(tc.argmax(outputs, dim=1).cpu().numpy())
+            
+            acc = accuracy(tc.tensor(Y_true), tc.tensor(Y_pred))
             epoch_loss = sum(batch_losses) / len(batch_losses)
             self.scheduler.step()
             train_losses.append(epoch_loss)
             print(f'Epoch [{epoch+1}/{num_epochs}], Train Loss: {epoch_loss:.4f}')
+            print(f'Accuracy after epoch {epoch+1}: {acc:.4f}')
 
             # --------- Validation ---------
             self.model.eval()
             val_batch_losses = []
+            Y_true, Y_pred = [], []
             with tc.no_grad():
                 for inputs, labels in self.val_loader:
                     inputs, labels = inputs.to(self.device), labels.to(self.device)
                     outputs = self.model(inputs)
                     loss = self.criterion(outputs, labels)
                     val_batch_losses.append(loss.item())
+                    Y_true.extend(labels.cpu().numpy())
+                    Y_pred.extend(tc.argmax(outputs, dim=1).cpu().numpy())
+            
+            acc = accuracy(tc.tensor(Y_true), tc.tensor(Y_pred))
+            print(f'Validation Accuracy after epoch {epoch+1}: {acc:.4f}')
             val_epoch_loss = sum(val_batch_losses) / len(val_batch_losses)
             val_losses.append(val_epoch_loss)
             print(f'Validation Loss: {val_epoch_loss:.4f}')
@@ -62,19 +71,17 @@ class CNNet():
     
     def test(self):
         self.model.eval()
-        correct = 0
-        total = 0
         test_losses = []
+        Y_true, Y_pred = [], []
         with tc.no_grad():
             for inputs, labels in self.test_loader:
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 outputs = self.model(inputs)
                 loss = self.criterion(outputs, labels)
                 test_losses.append(loss.item())
-                _, predicted = tc.max(outputs.data, 1)
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
-        test_loss = sum(test_losses) / len(test_losses)
-        accuracy = 100 * correct / total
-        print(f'Test Loss: {test_loss:.4f}, Test Accuracy: {accuracy:.2f}%')
-        return accuracy
+                Y_true.extend(labels.cpu().numpy())
+                Y_pred.extend(tc.argmax(outputs, dim=1).cpu().numpy())
+                
+        acc = accuracy(tc.tensor(Y_true), tc.tensor(Y_pred))
+        print(f'Test Accuracy: {acc:.4f}')
+        return acc
