@@ -2,10 +2,10 @@ import os
 import torch
 import argparse
 
-from networks.baseline import CNNet
-from networks.improved import ResNet  
-from utils.visualization import plot_loss_curve, plot_metrics_curve
-from utils.metrics import save_logs
+from src.networks.baseline import CNNet
+from src.networks.improved import ResNet  
+from src.utils.visualization import plot_loss_curve, plot_metrics_curve
+from src.utils.metrics import save_logs
 from dataset.preprocessing import preprocess_dataset, relabel
 
 
