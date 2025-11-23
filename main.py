@@ -32,7 +32,7 @@ def main():
     parser.add_argument("--features", type=str, default="dataset/data/mel_specs.npy")
     parser.add_argument("--labels", type=str, default="dataset/data/labels.npy")
     parser.add_argument("--batch_size", type=int, default=64)
-    parser.add_argument("--epochs", type=int, default=20)
+    parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--max_length", type=int, default=128)
     parser.add_argument("--save_plot", type=str, default="results/plots/loss_curve.png")
 

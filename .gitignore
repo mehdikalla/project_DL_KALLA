@@ -1,6 +1,6 @@
 # Ignorer les fichiers générés par le script
-results/plots/
-results/logs/
+results/plots/*
+results/logs/*
 
 # Ignorer les fichiers de données brutes
 dataset/metadata/tracks.csv
