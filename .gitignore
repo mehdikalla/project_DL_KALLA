@@ -11,10 +11,10 @@ dataset/data/mel_specs.npy
 dataset/data/labels.npy
 
 # Ignorer les fichiers de cache Python
-utils/__pycache__/
+src/utils/__pycache__/
 dataset/__pycache__/
-models/__pycache__/
-networks/__pycache__/
+src/models/__pycache__/
+src/networks/__pycache__/
 
 # Ignorer les fichiers debug
 debug.py
