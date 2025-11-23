@@ -42,3 +42,40 @@ class FC_Block(nn.Module):
         x = self.layers[-1](x)
         return x
     
+class Res_Block(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_sizes=(3,5,7), padding=1, pool_size=2, dropout_prob=0.25):
+        """
+        Bloc résiduel autonome :
+        - Convolutions avec BatchNorm + ReLU
+        - Connexion résiduelle
+        - Pooling et Dropout optionnels à la fin
+        """
+        super().__init__()
+        # Couches convolutives
+        self.convs = nn.ModuleList([
+            nn.Conv2d(in_channels, out_channels, k, padding=padding) 
+            for k in kernel_sizes])
+        
+        self.bns = nn.ModuleList([nn.BatchNorm2d(out_channels) for _ in kernel_sizes])
+
+
+        # Pooling et Dropout comme dans ton Conv_Block
+        self.pool = nn.MaxPool2d(pool_size, pool_size)
+        self.dropout = nn.Dropout(dropout_prob)
+
+        # Shortcut pour la connexion résiduelle
+        self.shortcut = nn.Identity()
+        if in_channels != out_channels:
+            self.shortcut = nn.Conv2d(in_channels, out_channels, kernel_size=1)
+
+    def forward(self, x):
+        residual = self.shortcut(x)
+        x_sum = 0
+        for conv, bn in zip(self.convs, self.bns):
+            x_sum += bn(conv(x))  # somme des sorties multiscales
+        x = F.relu(x_sum)
+        x += residual
+        x = F.relu(x)
+        x = self.pool(x)
+        x = self.dropout(x)
+        return x

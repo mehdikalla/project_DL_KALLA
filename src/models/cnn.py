@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from models.layers import Conv_Block, FC_Block
+from src.models.layers import Conv_Block, FC_Block
 S = nn.Softmax(dim=1)
 
 class CNN(nn.Module):
@@ -11,14 +11,14 @@ class CNN(nn.Module):
         """
         super().__init__()
         
-        # Définition des couches convolutionnelles
+        # Définition des blocs convolutifs
         self.conv_layers = nn.Sequential(
             Conv_Block(in_channels, 32),
             Conv_Block(32, 64),
             Conv_Block(64, 128)
         )
 
-        # Définition des couches fully connected
+        # Définition des blocs fully connected
         self.fc = FC_Block([128 * 16 * 16, 256, num_classes])  
         
     def forward(self, x):
