@@ -4,7 +4,7 @@ import argparse
 
 from networks.baseline import CNNet
 from networks.improved import ResNet  
-from utils.visualization import plot_loss_curve
+from utils.visualization import plot_loss_curve, plot_metrics_curve
 from utils.metrics import save_logs
 from dataset.preprocessing import preprocess_dataset, relabel
 
@@ -61,8 +61,13 @@ def main():
     )
 
     if args.mode == "train":
-        train_losses, val_losses = net.train(num_epochs=args.epochs)
+        train_losses, val_losses, acc_train, acc_val = net.train(num_epochs=args.epochs)
         plot_loss_curve(train_losses, val_losses, save_path=args.save_plot)
+        plot_metrics_curve(
+            metrics={"train": [acc_train]*args.epochs, "val": [acc_val]*args.epochs},
+            metric_name='Accuracy',
+            save_path='results/plots/accuracy_curve.png'
+        )   
         logs = {"train_loss": train_losses, "val_loss": val_losses}
         save_logs(logs, file_path="results/logs/training_logs.txt")
         print("Entraînement terminé.")

@@ -38,6 +38,7 @@ def plot_metrics_curve(metrics, metric_name='Accuracy', save_path='metrics_curve
     plt.grid(True)
     plt.savefig(save_path)
     plt.close()
+    
 def visualize_sample(sample, title='Sample Visualization', save_path='sample.png'):
     """
     Affiche un échantillon de données (ex: spectrogramme).
