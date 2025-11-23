@@ -3,54 +3,55 @@ import torch
 import os
 
 from networks.baseline import CNNet
+from networks.improved import ImprovedCNNet  # ton modèle amélioré
 from utils.visualization import plot_loss_curve
+from utils.metrics import save_logs
+from dataset.preprocessing import preprocess_dataset
+
+
+def get_model(model_name, device):
+    if model_name == "baseline":
+        return CNNet(device=device)
+    elif model_name == "improved":
+        return ImprovedCNNet(device=device)
+    else:
+        raise ValueError(f"Modèle inconnu : {model_name}")
 
 
 def main():
-    # ---------------------------------------------------------
-    # Argument parsing
-    # ---------------------------------------------------------
-    parser = argparse.ArgumentParser(description="Train CNN baseline on FMA-small")
+    parser = argparse.ArgumentParser(description="Pipeline FMA-small")
 
-    parser.add_argument("--features", type=str,
-                        default="dataset/data/mel_specs.npy",
-                        help="Chemin vers mel_specs.npy")
-
-    parser.add_argument("--labels", type=str,
-                        default="dataset/data/labels.npy",
-                        help="Chemin vers labels.npy")
-
+    parser.add_argument(
+        "--mode", type=str, choices=["preprocess", "train", "test"], required=True,
+        help="Mode à exécuter : preprocessing, entrainement ou test"
+    )
+    parser.add_argument(
+        "--model", type=str, choices=["baseline", "improved"], default="baseline",
+        help="Choix du modèle"
+    )
+    parser.add_argument("--features", type=str, default="mel_specs.npy")
+    parser.add_argument("--labels", type=str, default="labels.npy")
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--epochs", type=int, default=20)
     parser.add_argument("--max_length", type=int, default=128)
-
-    parser.add_argument("--save_plot", type=str, default="loss_curve.png",
-                        help="Chemin pour sauvegarder la courbe de perte")
+    parser.add_argument("--save_plot", type=str, default="results/plots/loss_curve.png")
 
     args = parser.parse_args()
 
-    # ---------------------------------------------------------
-    # Device
-    # ---------------------------------------------------------
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Device utilisé : {device}")
 
-    # ---------------------------------------------------------
-    # Vérification des fichiers
-    # ---------------------------------------------------------
+    if args.mode == "preprocess":
+        preprocess_dataset()
+        return
+
+    # Vérification fichiers pour train et test
     if not os.path.exists(args.features):
-        raise FileNotFoundError(f"Fichier introuvable : {args.features}")
+        raise FileNotFoundError(args.features)
     if not os.path.exists(args.labels):
-        raise FileNotFoundError(f"Fichier introuvable : {args.labels}")
+        raise FileNotFoundError(args.labels)
 
-    # ---------------------------------------------------------
-    # Initialisation du réseau baseline
-    # ---------------------------------------------------------
-    net = CNNet(device=device)
-
-    # ---------------------------------------------------------
-    # Dataloaders
-    # ---------------------------------------------------------
+    net = get_model(args.model, device)
     net.create_loaders(
         features_path=args.features,
         labels_path=args.labels,
@@ -58,23 +59,16 @@ def main():
         max_length=args.max_length
     )
 
-    # ---------------------------------------------------------
-    # Entraînement
-    # ---------------------------------------------------------
-    train_losses, val_losses = net.train(num_epochs=args.epochs)
+    if args.mode == "train":
+        train_losses, val_losses = net.train(num_epochs=args.epochs)
+        plot_loss_curve(train_losses, val_losses, save_path=args.save_plot)
+        logs = {"train_loss": train_losses, "val_loss": val_losses}
+        save_logs(logs, file_path="results/logs/training_logs.txt")
+        print("Entraînement terminé.")
 
-    # ---------------------------------------------------------
-    # Plot des courbes
-    # ---------------------------------------------------------
-    plot_loss_curve(train_losses, val_losses, save_path=args.save_plot)
-    print(f"Courbe de perte sauvegardée dans {args.save_plot}")
-
-    # ---------------------------------------------------------
-    # Test final
-    # ---------------------------------------------------------
-    acc = net.test()
-    print(f"Accuracy en test : {acc:.2f}%")
-
+    elif args.mode == "test":
+        acc = net.test()
+        print(f"Accuracy test : {acc:.2f}%")
 
 if __name__ == "__main__":
     main()
