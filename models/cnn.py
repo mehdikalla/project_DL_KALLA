@@ -19,7 +19,7 @@ class CNN(nn.Module):
         )
 
         # Définition des couches fully connected
-        self.fc = FC_Block([128 * 4 * 4, 256, num_classes])  
+        self.fc = FC_Block([128 * 16 * 16, 256, num_classes])  
         
     def forward(self, x):
         x = self.conv_layers(x)

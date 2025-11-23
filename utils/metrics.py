@@ -1,3 +1,14 @@
+import os
+
+def _unique_path(path):
+    base, ext = os.path.splitext(path)
+    k = 1
+    new_path = path
+    while os.path.exists(new_path):
+        new_path = f"{base}_{k}{ext}"
+        k += 1
+    return new_path
+
 def accuracy(y_true, y_pred):
     """
     Calcule la précision entre les étiquettes vraies et prédites.
@@ -9,19 +20,25 @@ def accuracy(y_true, y_pred):
     total = y_true.size(0)
     return correct / total if total > 0 else 0
 
+
+
 def save_logs(logs, file_path='training_logs.txt'):
     """
-    Sauvegarde les logs d'entraînement dans un fichier texte.
-    
-    logs      : dictionnaire contenant les informations de log
-    file_path : chemin du fichier de sauvegarde
+    Sauvegarde les logs d'entraînement sans écraser les anciens.
+    Chaque session est placée dans un nouveau fichier, numéroté automatiquement.
     """
+
+    file_path = _unique_path(file_path)
+
+    train_losses = logs.get("train_loss", [])
+    val_losses = logs.get("val_loss", [])
+
     with open(file_path, 'w') as f:
-        for key, values in logs.items():
-            f.write(f"{key}:\n")
-            for value in values:
-                f.write(f"{value}\n")
-            f.write("\n")
+        f.write("=== TRAINING LOGS ===\n\n")
+        f.write(f"{'Epoch':>5} | {'Train Loss':>10} | {'Val Loss':>10}\n")
+        f.write("-" * 32 + "\n")
 
+        for i, (tr, val) in enumerate(zip(train_losses, val_losses), 1):
+            f.write(f"{i:>5} | {tr:10.4f} | {val:10.4f}\n")
 
-
+        f.write("\n")

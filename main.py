@@ -6,7 +6,7 @@ from networks.baseline import CNNet
 from networks.improved import ResNet  
 from utils.visualization import plot_loss_curve
 from utils.metrics import save_logs
-from dataset.preprocessing import preprocess_dataset
+from dataset.preprocessing import preprocess_dataset, relabel
 
 
 def get_model(model_name, device):
@@ -43,6 +43,7 @@ def main():
 
     if args.mode == "preprocess":
         preprocess_dataset()
+        relabel(args.labels)
         return
 
     # Vérification fichiers pour train et test

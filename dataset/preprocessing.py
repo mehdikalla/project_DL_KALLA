@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 import librosa
-
+from tqdm import tqdm  
 DATASET_DIR = "dataset/metadata/fma_small"
 TRACKS_CSV = "dataset/metadata/tracks.csv"
 OUTPUT_FEATURES = "dataset/data/mel_specs.npy"
@@ -52,29 +52,27 @@ def preprocess_dataset():
     mel_specs = []
     labels = []
 
-    # itère sur tout le dossier fma_small
+    # liste tous les fichiers mp3 d’abord
+    all_files = []
     for root, _, files in os.walk(DATASET_DIR):
         for file in files:
-            if not file.endswith(".mp3"):
-                continue
+            if file.endswith(".mp3"):
+                all_files.append(os.path.join(root, file))
 
-            track_id = int(os.path.splitext(file)[0])
-            genre = genres.get(track_id)
+    # barre de progression avec tqdm
+    for track_path in tqdm(all_files, desc="Preprocessing audio", ncols=100):
+        track_id = int(os.path.splitext(os.path.basename(track_path))[0])
+        genre = genres.get(track_id)
 
-            # certains morceaux n'ont pas de genre : on les skip
-            if pd.isna(genre):
-                continue
+        if pd.isna(genre):
+            continue
 
-            track_path = os.path.join(root, file)
-
-            print(f"Processing {track_path}...")
-
-            try:
-                mel = preprocess_track(track_path)
-                mel_specs.append(mel)
-                labels.append(mapping[genre])
-            except Exception as e:
-                print(f"Erreur avec {track_path} : {e}")
+        try:
+            mel = preprocess_track(track_path)
+            mel_specs.append(mel)
+            labels.append(mapping[genre])
+        except Exception as e:
+            print(f"Erreur avec {track_path} : {e}")
 
     mel_specs = np.array(mel_specs, dtype=np.float32)
     labels = np.array(labels, dtype=np.int64)
@@ -82,6 +80,18 @@ def preprocess_dataset():
     np.save(OUTPUT_FEATURES, mel_specs)
     np.save(OUTPUT_LABELS, labels)
 
-    print("Préprocessing terminé.")
+    print("\nPréprocessing terminé.")
     print("Shape mel_specs :", mel_specs.shape)
     print("Shape labels :", labels.shape)
+
+def relabel(labels_path):
+    """
+    Remappe les labels existants pour qu’ils soient consécutifs de 0 à n-1.
+    Écrase le même fichier .npy.
+    """
+    labels = np.load(labels_path)
+    unique_labels = np.unique(labels)
+    label_map = {old: new for new, old in enumerate(sorted(unique_labels))}
+    labels_mapped = np.array([label_map[l] for l in labels], dtype=np.int64)
+    np.save(labels_path, labels_mapped)
+    print("Labels remappés :", np.unique(labels_mapped))

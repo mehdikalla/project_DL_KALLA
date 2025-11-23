@@ -18,18 +18,19 @@ class CNNet():
             features_path=features_path,
             labels_path=labels_path,
             batch_size=batch_size,
-            max_length=max_length
-        )
+            max_length=max_length)
 
     def train(self, num_epochs):
         train_losses, val_losses = [], []
-        Y_true, Y_pred = [], []
-        for epoch in range(num_epochs):
 
+        for epoch in range(num_epochs):
+            print(f"\n{'='*30}\nEpoch {epoch+1}/{num_epochs}\n{'='*30}")
             # --------- Entraînement ---------
             self.model.train()
             batch_losses = []
-            for inputs, labels in self.train_loader:
+            Y_true, Y_pred = [], []
+
+            for i, (inputs, labels) in enumerate(self.train_loader, 1):
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
 
                 self.optimizer.zero_grad()
@@ -38,37 +39,54 @@ class CNNet():
                 loss.backward()
                 self.optimizer.step()
                 batch_losses.append(loss.item())
+
                 Y_true.extend(labels.cpu().numpy())
                 Y_pred.extend(tc.argmax(outputs, dim=1).cpu().numpy())
-            
-            acc = accuracy(tc.tensor(Y_true), tc.tensor(Y_pred))
+
+                # print intermédiaire toutes les 10 batches
+                if i % 10 == 0 or i == len(self.train_loader):
+                    print(f"[Batch {i}/{len(self.train_loader)}] "
+                        f"Batch Loss: {loss.item():.4f}")
+
             epoch_loss = sum(batch_losses) / len(batch_losses)
-            self.scheduler.step()
+            acc = accuracy(tc.tensor(Y_true), tc.tensor(Y_pred))
             train_losses.append(epoch_loss)
-            print(f'Epoch [{epoch+1}/{num_epochs}], Train Loss: {epoch_loss:.4f}')
-            print(f'Accuracy after epoch {epoch+1}: {acc:.4f}')
+            self.scheduler.step()
+
+            print(f"\n-- Epoch {epoch+1} Completed --")
+            print(f"Train Loss: {epoch_loss:.4f}")
+            print(f"Train Accuracy: {acc:.4f}\n")
 
             # --------- Validation ---------
             self.model.eval()
             val_batch_losses = []
             Y_true, Y_pred = [], []
+
             with tc.no_grad():
-                for inputs, labels in self.val_loader:
+                for i, (inputs, labels) in enumerate(self.val_loader, 1):
                     inputs, labels = inputs.to(self.device), labels.to(self.device)
                     outputs = self.model(inputs)
                     loss = self.criterion(outputs, labels)
                     val_batch_losses.append(loss.item())
                     Y_true.extend(labels.cpu().numpy())
                     Y_pred.extend(tc.argmax(outputs, dim=1).cpu().numpy())
-            
-            acc = accuracy(tc.tensor(Y_true), tc.tensor(Y_pred))
-            print(f'Validation Accuracy after epoch {epoch+1}: {acc:.4f}')
+
+                    if i % 10 == 0 or i == len(self.val_loader):
+                        print(f"[Val Batch {i}/{len(self.val_loader)}] "
+                            f"Batch Loss: {loss.item():.4f}")
+
             val_epoch_loss = sum(val_batch_losses) / len(val_batch_losses)
+            val_acc = accuracy(tc.tensor(Y_true), tc.tensor(Y_pred))
             val_losses.append(val_epoch_loss)
-            print(f'Validation Loss: {val_epoch_loss:.4f}')
+
+            print(f"\n== Validation for Epoch {epoch+1} ==")
+            print(f"Validation Loss: {val_epoch_loss:.4f}")
+            print(f"Validation Accuracy: {val_acc:.4f}")
+            print("="*30)
 
         return train_losses, val_losses
-    
+
+        
     def test(self):
         self.model.eval()
         test_losses = []

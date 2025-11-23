@@ -1,13 +1,19 @@
+import os
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
+def _unique_path(path):
+    base, ext = os.path.splitext(path)
+    k = 1
+    new_path = path
+    while os.path.exists(new_path):
+        new_path = f"{base}_{k}{ext}"
+        k += 1
+    return new_path
+
 def plot_loss_curve(train_losses, val_losses, save_path='loss_curve.png'):
-    """
-    Affiche la courbe de perte pour l'entraînement et la validation.
-    
-    train_losses : liste des pertes d'entraînement par époque
-    val_losses   : liste des pertes de validation par époque
-    """
+    save_path = _unique_path(save_path)
+
     plt.figure(figsize=(10, 5))
     plt.plot(train_losses, label='Train Loss')
     plt.plot(val_losses, label='Validation Loss')
@@ -20,12 +26,8 @@ def plot_loss_curve(train_losses, val_losses, save_path='loss_curve.png'):
     plt.close()
 
 def plot_metrics_curve(metrics, metric_name='Accuracy', save_path='metrics_curve.png'):
-    """
-    Affiche la courbe d'une métrique (ex: précision) pour l'entraînement et la validation.
-    
-    metrics      : dictionnaire avec 'train' et 'val' comme clés et listes de métriques par époque comme valeurs
-    metric_name  : nom de la métrique à afficher
-    """
+    save_path = _unique_path(save_path)
+
     plt.figure(figsize=(10, 5))
     plt.plot(metrics['train'], label=f'Train {metric_name}')
     plt.plot(metrics['val'], label=f'Validation {metric_name}')
@@ -36,7 +38,6 @@ def plot_metrics_curve(metrics, metric_name='Accuracy', save_path='metrics_curve
     plt.grid(True)
     plt.savefig(save_path)
     plt.close()
-
 def visualize_sample(sample, title='Sample Visualization', save_path='sample.png'):
     """
     Affiche un échantillon de données (ex: spectrogramme).
