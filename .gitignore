@@ -18,3 +18,8 @@ networks/__pycache__/
 
 # Ignorer les fichiers debug
 debug.py
+
+# Ne pas ignorer les dossiers
+!results/plots/.gitkeep
+!results/logs/.gitkeep
+!dataset/metadata/.gitkeep
