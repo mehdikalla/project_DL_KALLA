@@ -2,20 +2,10 @@ import os
 import torch
 import argparse
 
-from src.networks.baseline import CNNet
-from src.networks.improved import ResNet  
+from src.network import main_network 
 from src.utils.visualization import plot_loss_curve, plot_metrics_curve
 from src.utils.metrics import save_logs
 from dataset.preprocessing import preprocess_dataset, relabel
-
-
-def get_model(model_name, device):
-    if model_name == "baseline":
-        return CNNet(device=device) 
-    elif model_name == "improved":
-        return ResNet(device=device)
-    else:
-        raise ValueError(f"Modèle inconnu : {model_name}")
 
 
 def main():
@@ -69,7 +59,7 @@ def main():
     if not os.path.exists(args.features) or not os.path.exists(args.labels):
         raise FileNotFoundError("Données non trouvées.")
 
-    net = get_model(MODEL_NAME, device)
+    net = main_network(MODEL_NAME, device)
     net.create_loaders(args.features, args.labels, args.batch_size, args.max_length)
 
     if args.mode == "train":

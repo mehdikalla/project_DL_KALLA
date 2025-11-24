@@ -1,5 +1,5 @@
 import torch.nn as nn
-from .layers import Conv_Block, FC_Block
+from .blocks import Conv_Block, FC_Block
 S = nn.Softmax(dim=1)
 
 class CNN_model(nn.Module):
@@ -14,8 +14,7 @@ class CNN_model(nn.Module):
         self.conv_layers = nn.Sequential(
             Conv_Block(in_channels, 32),
             Conv_Block(32, 64),
-            Conv_Block(64, 128)
-        )
+            Conv_Block(64, 128))
 
         # Définition des blocs fully connected
         self.fc = FC_Block([128 * 16 * 16, 256, num_classes])  

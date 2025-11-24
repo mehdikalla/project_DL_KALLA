@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 import librosa
 from tqdm import tqdm  
-DATASET_DIR = "dataset/metadata/fma_small"
-TRACKS_CSV = "dataset/metadata/tracks.csv"
+DATASET_DIR = "metadata/fma_small"
+TRACKS_CSV = "metadata/tracks.csv"
 OUTPUT_FEATURES = "dataset/data/mel_specs.npy"
 OUTPUT_LABELS = "dataset/data/labels.npy"
 

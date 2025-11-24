@@ -4,8 +4,8 @@ results/logs/*
 results/samples/
 
 # Ignorer les fichiers de données brutes
-dataset/metadata/tracks.csv
-dataset/metadata/fma_small/
+metadata/tracks.csv
+metadata/fma_small/
 
 dataset/data/mel_specs.npy
 dataset/data/labels.npy
@@ -26,4 +26,4 @@ debug.py
 !results/improved/plots/.gitkeep
 !results/improved/logs/.gitkeep
 !results/improved/weights/.gitkeep
-!dataset/metadata/.gitkeep
+!metadata/.gitkeep

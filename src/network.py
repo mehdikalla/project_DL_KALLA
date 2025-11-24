@@ -1,13 +1,17 @@
 import torch as tc
 import torch.nn as nn
 from src.models.cnn_model import CNN_model
+from src.models.resnn_model import ResNN_model
 from dataset.data_loader import get_dataloaders
 from src.utils.metrics import accuracy
 
-class CNNet():
-    def __init__(self, device):
+class main_network():
+    def __init__(self, model_name, device):
         self.device = device
-        self.model = CNN_model().to(self.device)
+        if model_name == 'baseline':
+            self.model = CNN_model().to(self.device)
+        elif model_name == 'improved' :
+            self.model = ResNN_model().to(self.device)
         self.criterion = nn.CrossEntropyLoss()
         self.optimizer = tc.optim.Adam(self.model.parameters(), lr=0.001)
         self.scheduler = tc.optim.lr_scheduler.StepLR(self.optimizer, step_size=10, gamma=0.1)
@@ -86,7 +90,7 @@ class CNNet():
             val_accuracy.append(accuracy(tc.tensor(Y_true_val), tc.tensor(Y_pred_val)))
 
             print(f"Train Loss: {train_losses[-1]:.4e} | Val Loss: {val_losses[-1]:.4e}")
-            print(f"Train Accuracy: {train_accuracy:.4f} | Val Accuracy: {val_accuracy:.4f}")
+            print(f"Train Accuracy: {train_accuracy[-1]:.4f} | Val Accuracy: {val_accuracy[-1]:.4f}")
             if epoch == num_epochs - 1:
                 self.val_preds = Y_pred_val
                 self.val_true  = Y_true_val
