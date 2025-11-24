@@ -1,9 +1,8 @@
 import torch.nn as nn
-import torch.nn.functional as F
-from src.models.layers import Conv_Block, FC_Block
+from .layers import Conv_Block, FC_Block
 S = nn.Softmax(dim=1)
 
-class CNN(nn.Module):
+class CNN_model(nn.Module):
     def __init__(self, in_channels=1, num_classes=8):
         """
         in_channels : nombre de canaux d'entrée

@@ -20,6 +20,10 @@ src/networks/__pycache__/
 debug.py
 
 # Ne pas ignorer les dossiers
-!results/plots/.gitkeep
-!results/logs/.gitkeep
+!results/baseline/plots/.gitkeep
+!results/baseline/logs/.gitkeep
+!results/baseline/weights/.gitkeep
+!results/improved/plots/.gitkeep
+!results/improved/logs/.gitkeep
+!results/improved/weights/.gitkeep
 !dataset/metadata/.gitkeep

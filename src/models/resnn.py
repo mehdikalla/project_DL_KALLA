@@ -1,5 +1,5 @@
 import torch.nn as nn
-from src.models.layers import FC_Block, Res_Block 
+from .layers import FC_Block, Res_Block 
 S = nn.Softmax(dim=1)
 
 class ResNet(nn.Module):
