@@ -66,15 +66,15 @@ def main():
         os.makedirs(PLOTS_PATH, exist_ok=True)
         os.makedirs(LOGS_PATH, exist_ok=True)
         
-        train_losses, val_losses, acc_train, acc_val = net.train(num_epochs=args.epochs)
+        train_losses, val_losses, train_accuracy, val_accuracy = net.train(num_epochs=args.epochs)
         
         plot_loss_curve(train_losses, val_losses, save_path=PLOT_LOSS_PATH)
         plot_metrics_curve(
-            metrics={"train": [acc_train]*args.epochs, "val": [acc_val]*args.epochs},
+            metrics={"train": train_accuracy, "val": val_accuracy},
             metric_name='Accuracy',
             save_path=PLOT_ACC_PATH
         )   
-        logs = {"train_loss": train_losses, "val_loss": val_losses, "train_accuracy": [acc_train]*args.epochs, "val_accuracy": [acc_val]*args.epochs}
+        logs = {"train_loss": train_losses, "val_loss": val_losses, "train_accuracy": train_accuracy, "val_accuracy": val_accuracy}
         save_logs(logs, file_path=LOGS_FILE_PATH)
         
         torch.save(net.model.state_dict(), WEIGHTS_FILE_PATH)
