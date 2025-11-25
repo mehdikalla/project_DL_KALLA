@@ -33,17 +33,17 @@ class main_network():
 
     def train(self, num_epochs):
         train_losses, val_losses = [], []
+        train_accuracy, val_accuracy = [], [] # Contient l'accuracy de chaque époque
 
-        # stocker toutes les prédictions de la dernière époque uniquement
-        # (plus utile et cohérent)
         for epoch in range(num_epochs):
             print(("--------------------------------"))
             print(f"--- Epoch {epoch+1}/{num_epochs} ---")
+            
             # ------- TRAIN -------
             self.model.train()
-            Y_true_train, Y_pred_train = [], []
             batch_losses = []
-            train_accuracy = []
+            # CORRECTION : Accumuler les résultats de TOUS les batches de l'époque
+            Y_true_epoch, Y_pred_epoch = [], [] 
 
             for batch_idx, batch in enumerate(self.train_loader,1):
                 inputs, labels = batch
@@ -53,28 +53,28 @@ class main_network():
                 loss = self.criterion(outputs, labels)
                 loss.backward()
                 self.optimizer.step()
+                
                 batch_losses.append(loss.item())
                 if batch_idx % 10 == 0:
                     print(f"  Batch {batch_idx}/{len(self.train_loader)} – Loss: {loss.item():.4e}")
-                Y_true_train.extend(labels.cpu().numpy())
-                Y_pred_train.extend(tc.argmax(outputs, dim=1).cpu().numpy())
-
+                
+                # CORRECTION : Stockage
+                Y_true_epoch.extend(labels.cpu().numpy())
+                Y_pred_epoch.extend(tc.argmax(outputs, dim=1).cpu().numpy())
+                
             train_losses.append(sum(batch_losses)/len(batch_losses))
-            train_accuracy.append(accuracy(tc.tensor(Y_true_train), tc.tensor(Y_pred_train)))
-
-            # garder les prédictions de la dernière époque
-            if epoch == num_epochs - 1:
-                self.train_preds = Y_pred_train
-                self.train_true  = Y_true_train
+            # CORRECTION : Calculer l'accuracy sur TOUTES les prédictions accumulées
+            acc_train = accuracy(tc.tensor(Y_true_epoch), tc.tensor(Y_pred_epoch))
+            train_accuracy.append(acc_train)
 
             # scheduler
             self.scheduler.step()
 
             # ------- VALIDATION -------
             self.model.eval()
-            Y_true_val, Y_pred_val = [], []
             val_batch_losses = []
-            val_accuracy = []
+            # CORRECTION : Accumuler les résultats de TOUS les batches de l'époque
+            Y_true_val_epoch, Y_pred_val_epoch = [], [] 
 
             with tc.no_grad():
                 for batch_idx, batch in enumerate(self.val_loader,1):
@@ -82,25 +82,34 @@ class main_network():
                     inputs, labels = inputs.to(self.device), labels.to(self.device)
                     outputs = self.model(inputs)
                     loss = self.criterion(outputs, labels)
+                    
                     val_batch_losses.append(loss.item())
-                    Y_true_val.extend(labels.cpu().numpy())
-                    Y_pred_val.extend(tc.argmax(outputs, dim=1).cpu().numpy())
+                    
+                    # CORRECTION : Stockage
+                    Y_true_val_epoch.extend(labels.cpu().numpy())
+                    Y_pred_val_epoch.extend(tc.argmax(outputs, dim=1).cpu().numpy())
 
             val_losses.append(sum(val_batch_losses)/len(val_batch_losses))
-            val_accuracy.append(accuracy(tc.tensor(Y_true_val), tc.tensor(Y_pred_val)))
+            # CORRECTION : Calculer l'accuracy sur TOUTES les prédictions accumulées
+            acc_val = accuracy(tc.tensor(Y_true_val_epoch), tc.tensor(Y_pred_val_epoch))
+            val_accuracy.append(acc_val)
+            
+            # Nettoyage des valeurs pour le print (si accuracy retourne un Tensor)
+            if isinstance(acc_train, tc.Tensor): acc_train_print = acc_train.cpu().item()
+            else: acc_train_print = acc_train
+            if isinstance(acc_val, tc.Tensor): acc_val_print = acc_val.cpu().item()
+            else: acc_val_print = acc_val
 
             print(f"Train Loss: {train_losses[-1]:.4e} | Val Loss: {val_losses[-1]:.4e}")
-            print(f"Train Accuracy: {train_accuracy[-1]:.4f} | Val Accuracy: {val_accuracy[-1]:.4f}")
-            if epoch == num_epochs - 1:
-                self.val_preds = Y_pred_val
-                self.val_true  = Y_true_val
+            print(f"Train Accuracy: {acc_train_print:.4f} | Val Accuracy: {acc_val_print:.4f}")
 
         return train_losses, val_losses, train_accuracy, val_accuracy
 
     def test(self):
         self.model.eval()
-        Y_true_test, Y_pred_test = [], []
         losses = []
+        # CORRECTION : Accumuler les résultats de TOUS les batches de test
+        Y_true_epoch, Y_pred_epoch = [], []
 
         with tc.no_grad():
             for batch_idx, batch in enumerate(self.test_loader,1):
@@ -108,14 +117,21 @@ class main_network():
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 outputs = self.model(inputs)
                 loss = self.criterion(outputs, labels)
+                
                 losses.append(loss.item())
-                Y_true_test.extend(labels.cpu().numpy())
-                Y_pred_test.extend(tc.argmax(outputs, dim=1).cpu().numpy())
+                
+                # CORRECTION : Stockage
+                Y_true_epoch.extend(labels.cpu().numpy())
+                Y_pred_epoch.extend(tc.argmax(outputs, dim=1).cpu().numpy())
 
         print(f"Test Loss: {sum(losses)/len(losses):.4e}")
-        self.test_preds = Y_pred_test
-        self.test_true  = Y_true_test
 
-        acc = accuracy(tc.tensor(Y_true_test), tc.tensor(Y_pred_test))
-        print(f"Test Accuracy: {acc:.4f}")
-        return acc
+        # CORRECTION : Calculer l'accuracy sur TOUTES les prédictions accumulées
+        acc = accuracy(tc.tensor(Y_true_epoch), tc.tensor(Y_pred_epoch))
+        
+        # Nettoyage des valeurs pour le print
+        if isinstance(acc, tc.Tensor): acc_print = acc.cpu().item()
+        else: acc_print = acc
+
+        print(f"Test Accuracy: {acc_print:.4f}")
+        return acc_print

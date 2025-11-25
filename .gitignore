@@ -1,10 +1,10 @@
 # Ignorer les fichiers générés par le script
-results/baseline/plots/*
-results/baseline/logs/*
-results/baseline/weights/*
-results/improved/plots/*
-results/improved/logs/*
-results/improved/weights/*
+results/baseline/plots/
+results/baseline/logs/
+results/baseline/weights/
+results/improved/plots/
+results/improved/logs/
+results/improved/weights/
 results/samples/
 
 # Ignorer les fichiers de données brutes

@@ -25,17 +25,22 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Device utilisé : {device}")
 
-    # --- Configuration des chemins ---
+    # --- Configuration des chemins de base ---
     MODEL_NAME = args.model
     BASE_PATH = os.path.join(args.save_path, MODEL_NAME)
     PLOTS_PATH = os.path.join(BASE_PATH, "plots")
     LOGS_PATH = os.path.join(BASE_PATH, "logs")
-    WEIGHTS_PATH = os.path.join(BASE_PATH, "weights")
+    
+    # Correction: Le dossier 'weights' est inclus dans le chemin du fichier pour plus de clarté,
+    # mais la vérification de version doit se faire sur un chemin simple.
+    WEIGHTS_DIR = os.path.join(BASE_PATH, "weights") # Ajout d'une variable pour le dossier
 
     # --- VERSIONING SIMPLE (AJOUTÉ) ---
     # On cherche le premier numéro disponible : 1, 2, 3...
     version = 1
-    while os.path.exists(os.path.join(BASE_PATH, f"weights_{version}.pth")):
+    # CORRECTION 1: On vérifie l'existence dans le dossier WEIGHTS_DIR, pas BASE_PATH, 
+    # pour que l'incrémentation soit correcte dans le bon dossier.
+    while os.path.exists(os.path.join(WEIGHTS_DIR, f"weights_{version}.pth")): 
         version += 1
     
     # Si on est en mode TEST, on veut prendre la dernière version existante (celle d'avant), pas la nouvelle
@@ -44,8 +49,8 @@ def main():
     
     print(f"--- Exécution version : {version} ---")
     
-    # On ajoute le suffixe de version aux fichiers
-    WEIGHTS_FILE_PATH = os.path.join(WEIGHTS_PATH, f"weights_{version}.pth")
+    # CORRECTION 2: Simplification des noms de fichiers. Le numéro de version est intégré UNE SEULE FOIS.
+    WEIGHTS_FILE_PATH = os.path.join(WEIGHTS_DIR, f"weights_{version}.pth")
     PLOT_LOSS_PATH = os.path.join(PLOTS_PATH, f"loss_curve_{version}.png")
     PLOT_ACC_PATH = os.path.join(PLOTS_PATH, f"accuracy_curve_{version}.png")
     LOGS_FILE_PATH = os.path.join(LOGS_PATH, f"training_logs_{version}.txt")
@@ -59,15 +64,19 @@ def main():
     if not os.path.exists(args.features) or not os.path.exists(args.labels):
         raise FileNotFoundError("Données non trouvées.")
 
-    net = main_network(MODEL_NAME, device)
+    # La fonction main_network doit retourner l'instance de votre classe CNNet/ResNet
+    net = main_network(MODEL_NAME, device) 
     net.create_loaders(args.features, args.labels, args.batch_size, args.max_length)
 
     if args.mode == "train":
+        # Crée les dossiers nécessaires
         os.makedirs(PLOTS_PATH, exist_ok=True)
         os.makedirs(LOGS_PATH, exist_ok=True)
+        os.makedirs(WEIGHTS_DIR, exist_ok=True) # AJOUT: Crée le dossier des poids
         
         train_losses, val_losses, train_accuracy, val_accuracy = net.train(num_epochs=args.epochs)
         
+        # Les variables PATH sont maintenant complètes et n'incluent pas de double extension
         plot_loss_curve(train_losses, val_losses, save_path=PLOT_LOSS_PATH)
         plot_metrics_curve(
             metrics={"train": train_accuracy, "val": val_accuracy},
