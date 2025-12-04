@@ -5,6 +5,7 @@ results/baseline/weights/
 results/improved/plots/
 results/improved/logs/
 results/improved/weights/
+results/logs/
 results/samples/
 dl_env/
 # Ignorer les fichiers de données brutes
@@ -22,6 +23,8 @@ src/__pycache__/
 
 # Ignorer les fichiers debug
 debug.py
+run_baseline.slurm
+run_improved.slurm
 
 # Ne pas ignorer les dossiers
 !results/baseline/plots/.gitkeep
