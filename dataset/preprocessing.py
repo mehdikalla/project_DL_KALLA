@@ -3,9 +3,13 @@ import numpy as np
 import pandas as pd
 import librosa
 from tqdm import tqdm  
+
 DATASET_DIR = "metadata/fma_small"
 TRACKS_CSV = "metadata/tracks.csv"
-OUTPUT_FEATURES = "dataset/data/mel_specs.npy"
+# MISE À JOUR : Nouveaux chemins de sortie
+OUTPUT_MEL = "dataset/data/mel_specs.npy"
+OUTPUT_DELTA1 = "dataset/data/mel_delta1.npy"
+OUTPUT_DELTA2 = "dataset/data/mel_delta2.npy"
 OUTPUT_LABELS = "dataset/data/labels.npy"
 
 SR = 22050
@@ -24,6 +28,8 @@ def load_genre_labels(csv_path):
 
 def preprocess_track(path):
     y, sr = librosa.load(path, sr=SR)
+    
+    # 1. Calcul du Mel-spectrogramme (MEL)
     mel = librosa.feature.melspectrogram(
         y=y,
         sr=sr,
@@ -33,23 +39,38 @@ def preprocess_track(path):
     )
     mel = librosa.power_to_db(mel, ref=np.max)
 
-    # normalisation par morceau
+    # 2. Calcul des Deltas (DELTAS)
+    mel_delta1 = librosa.feature.delta(mel, order=1)
+    mel_delta2 = librosa.feature.delta(mel, order=2) 
+    
+    # Normalisation par morceau pour chaque feature
     mel = (mel - mel.mean()) / (mel.std() + 1e-6)
+    mel_delta1 = (mel_delta1 - mel_delta1.mean()) / (mel_delta1.std() + 1e-6)
+    mel_delta2 = (mel_delta2 - mel_delta2.mean()) / (mel_delta2.std() + 1e-6)
+    
+    features = [mel, mel_delta1, mel_delta2]
+    processed_features = []
+    
+    # Padding ou truncation pour tous les features
+    for feature in features:
+        if feature.shape[1] < MAX_LEN:
+            pad_width = MAX_LEN - feature.shape[1]
+            # Padding sur la dimension temporelle (axe 1)
+            feature = np.pad(feature, ((0, 0), (0, pad_width)))
+        else:
+            feature = feature[:, :MAX_LEN]
+        processed_features.append(feature)
 
-    # padding ou truncation
-    if mel.shape[1] < MAX_LEN:
-        pad_width = MAX_LEN - mel.shape[1]
-        mel = np.pad(mel, ((0, 0), (0, pad_width)))
-    else:
-        mel = mel[:, :MAX_LEN]
-
-    return mel
+    # Retourne les 3 features séparément
+    return processed_features[0], processed_features[1], processed_features[2]
 
 
 def preprocess_dataset():
     genres, mapping = load_genre_labels(TRACKS_CSV)
 
     mel_specs = []
+    delta1_specs = [] # NOUVEAU
+    delta2_specs = [] # NOUVEAU
     labels = []
 
     # liste tous les fichiers mp3 d’abord
@@ -68,21 +89,31 @@ def preprocess_dataset():
             continue
 
         try:
-            mel = preprocess_track(track_path)
+            mel, delta1, delta2 = preprocess_track(track_path) # Réception des 3
             mel_specs.append(mel)
+            delta1_specs.append(delta1) # Ajout
+            delta2_specs.append(delta2) # Ajout
             labels.append(mapping[genre])
         except Exception as e:
             print(f"Erreur avec {track_path} : {e}")
 
     mel_specs = np.array(mel_specs, dtype=np.float32)
+    delta1_specs = np.array(delta1_specs, dtype=np.float32) # Conversion
+    delta2_specs = np.array(delta2_specs, dtype=np.float32) # Conversion
     labels = np.array(labels, dtype=np.int64)
 
-    np.save(OUTPUT_FEATURES, mel_specs)
+    # SAUVEGARDE DES 3 FICHIERS DE FEATURES
+    np.save(OUTPUT_MEL, mel_specs)
+    np.save(OUTPUT_DELTA1, delta1_specs)
+    np.save(OUTPUT_DELTA2, delta2_specs)
     np.save(OUTPUT_LABELS, labels)
 
     print("\nPréprocessing terminé.")
     print("Shape mel_specs :", mel_specs.shape)
+    print("Shape delta1_specs :", delta1_specs.shape)
+    print("Shape delta2_specs :", delta2_specs.shape)
     print("Shape labels :", labels.shape)
+
 
 def relabel(labels_path):
     """

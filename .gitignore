@@ -6,7 +6,7 @@ results/improved/plots/
 results/improved/logs/
 results/improved/weights/
 results/samples/
-
+dl_env/
 # Ignorer les fichiers de données brutes
 metadata/tracks.csv
 metadata/fma_small/

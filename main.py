@@ -64,9 +64,28 @@ def main():
     if not os.path.exists(args.features) or not os.path.exists(args.labels):
         raise FileNotFoundError("Données non trouvées.")
 
+    # --- NOUVEAU: Logique de sélection des chemins de features ---
+    feature_paths = [args.features] # Par défaut: seulement le Mel-spec (pour 'baseline')
+
+    if args.model == "improved":
+        # Dérive les chemins pour Delta et Delta-Delta à partir du chemin du Mel-spec
+        mel_path = args.features
+        # La convention de nommage du preprocessing.py est utilisée ici
+        delta1_path = mel_path.replace("mel_specs", "mel_delta1") 
+        delta2_path = mel_path.replace("mel_specs", "mel_delta2") 
+
+        # Vérification si les fichiers Delta existent
+        if not os.path.exists(delta1_path) or not os.path.exists(delta2_path):
+            raise FileNotFoundError(f"Fichiers Delta nécessaires pour le modèle 'improved' introuvables : {delta1_path} ou {delta2_path}. Exécutez 'python main.py --mode preprocess' pour les générer.")
+            
+        feature_paths = [mel_path, delta1_path, delta2_path] # Liste de 3 chemins
+    # -----------------------------------------------------------
+
     # La fonction main_network doit retourner l'instance de votre classe CNNet/ResNet
     net = main_network(MODEL_NAME, device) 
-    net.create_loaders(args.features, args.labels, args.batch_size, args.max_length)
+    
+    # L'appel à create_loaders est mis à jour pour accepter la liste feature_paths
+    net.create_loaders(feature_paths, args.labels, args.batch_size, args.max_length) 
 
     if args.mode == "train":
         # Crée les dossiers nécessaires

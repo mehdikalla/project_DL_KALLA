@@ -13,8 +13,8 @@ class main_network():
         elif model_name == 'improved' :
             self.model = ResNN_model().to(self.device)
         self.criterion = nn.CrossEntropyLoss()
-        self.optimizer = tc.optim.Adam(self.model.parameters(), lr=0.001)
-        self.scheduler = tc.optim.lr_scheduler.StepLR(self.optimizer, step_size=10, gamma=0.1)
+        self.optimizer = tc.optim.Adam(self.model.parameters(), lr=0.001, weight_decay=1e-4)
+        self.scheduler = tc.optim.lr_scheduler.StepLR(self.optimizer, step_size=10, gamma=0.9)
 
         # stockage des prédictions
         self.train_preds = None
@@ -24,9 +24,9 @@ class main_network():
         self.test_preds = None
         self.test_true = None
 
-    def create_loaders(self, features_path, labels_path, batch_size=64, max_length=128):
+    def create_loaders(self, features_paths, labels_path, batch_size=64, max_length=128): 
         self.train_loader, self.val_loader, self.test_loader = get_dataloaders(
-            features_path=features_path,
+            features_paths=features_paths, # Utilise la liste ou le chemin unique
             labels_path=labels_path,
             batch_size=batch_size,
             max_length=max_length)

@@ -1,9 +1,8 @@
 import torch.nn as nn
 from .blocks import FC_Block, Res_Block 
-S = nn.Softmax(dim=1)
 
 class ResNN_model(nn.Module):
-    def __init__(self, in_channels=1, num_classes=8):
+    def __init__(self, in_channels=3, num_classes=8):
         super().__init__()
 
         # Définition des blocs résiduels
@@ -19,5 +18,4 @@ class ResNN_model(nn.Module):
         x = self.res_layers(x)
         x = x.view(x.size(0), -1)  # Aplatir les tenseurs
         x = self.fc(x)
-        x = S(x)
         return x

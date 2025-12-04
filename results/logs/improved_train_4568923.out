@@ -1,0 +1,705 @@
+--- Démarrage de l'entraînement Improved ---
+Device utilisé : cuda
+--- Exécution version : 1 ---
+--------------------------------
+--- Epoch 1/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.0709e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1021e+00
+  Batch 50/100 – Loss: 2.2115e+00
+  Batch 60/100 – Loss: 2.1803e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1959e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1518e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1208 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 2/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.1178e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1178e+00
+  Batch 50/100 – Loss: 2.2271e+00
+  Batch 60/100 – Loss: 2.1178e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1646e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.1788e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 3/50 ---
+  Batch 10/100 – Loss: 2.2115e+00
+  Batch 20/100 – Loss: 2.1959e+00
+  Batch 30/100 – Loss: 2.1490e+00
+  Batch 40/100 – Loss: 2.1803e+00
+  Batch 50/100 – Loss: 2.1021e+00
+  Batch 60/100 – Loss: 2.1334e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1803e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 4/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.2271e+00
+  Batch 30/100 – Loss: 2.1959e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.1959e+00
+  Batch 70/100 – Loss: 2.1178e+00
+  Batch 80/100 – Loss: 2.1803e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 5/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.1803e+00
+  Batch 30/100 – Loss: 2.1803e+00
+  Batch 40/100 – Loss: 2.2115e+00
+  Batch 50/100 – Loss: 2.0709e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1178e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.2264e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 6/50 ---
+  Batch 10/100 – Loss: 2.1334e+00
+  Batch 20/100 – Loss: 2.1959e+00
+  Batch 30/100 – Loss: 2.0709e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.1959e+00
+  Batch 60/100 – Loss: 2.1178e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.1629e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 7/50 ---
+  Batch 10/100 – Loss: 2.2115e+00
+  Batch 20/100 – Loss: 2.0240e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1490e+00
+  Batch 60/100 – Loss: 2.1959e+00
+  Batch 70/100 – Loss: 2.0553e+00
+  Batch 80/100 – Loss: 2.1021e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.1470e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 8/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.1334e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1334e+00
+  Batch 50/100 – Loss: 2.2428e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1334e+00
+  Batch 90/100 – Loss: 2.1959e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 9/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.1178e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.1803e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1803e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 10/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.0865e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.1178e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1646e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.1788e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 11/50 ---
+  Batch 10/100 – Loss: 2.0865e+00
+  Batch 20/100 – Loss: 2.1334e+00
+  Batch 30/100 – Loss: 2.1178e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1178e+00
+  Batch 60/100 – Loss: 2.1490e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1646e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1470e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 12/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.1334e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1646e+00
+  Batch 60/100 – Loss: 2.1021e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.1334e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 13/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.1334e+00
+  Batch 30/100 – Loss: 2.1334e+00
+  Batch 40/100 – Loss: 2.0553e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.1803e+00
+  Batch 70/100 – Loss: 2.1646e+00
+  Batch 80/100 – Loss: 2.1021e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1788e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 14/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.1021e+00
+  Batch 30/100 – Loss: 2.1334e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.2115e+00
+  Batch 60/100 – Loss: 2.1490e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.0865e+00
+  Batch 100/100 – Loss: 2.2105e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 15/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.1803e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1959e+00
+  Batch 60/100 – Loss: 2.1021e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.1959e+00
+  Batch 90/100 – Loss: 2.1490e+00
+  Batch 100/100 – Loss: 2.0677e+00
+Train Loss: 2.1519e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 16/50 ---
+  Batch 10/100 – Loss: 2.0553e+00
+  Batch 20/100 – Loss: 2.1178e+00
+  Batch 30/100 – Loss: 2.1803e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1334e+00
+  Batch 60/100 – Loss: 2.2115e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 17/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.1959e+00
+  Batch 30/100 – Loss: 2.1178e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1178e+00
+  Batch 60/100 – Loss: 2.0709e+00
+  Batch 70/100 – Loss: 2.1959e+00
+  Batch 80/100 – Loss: 2.1178e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1946e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 18/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1334e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1646e+00
+  Batch 90/100 – Loss: 2.1490e+00
+  Batch 100/100 – Loss: 2.1629e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 19/50 ---
+  Batch 10/100 – Loss: 2.0709e+00
+  Batch 20/100 – Loss: 2.1803e+00
+  Batch 30/100 – Loss: 2.1178e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.1334e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1178e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1946e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 20/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.1959e+00
+  Batch 30/100 – Loss: 2.1334e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.1334e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.0865e+00
+  Batch 80/100 – Loss: 2.1959e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 21/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.1490e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.0865e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1946e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 22/50 ---
+  Batch 10/100 – Loss: 2.2115e+00
+  Batch 20/100 – Loss: 2.1646e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1178e+00
+  Batch 60/100 – Loss: 2.2428e+00
+  Batch 70/100 – Loss: 2.2115e+00
+  Batch 80/100 – Loss: 2.1178e+00
+  Batch 90/100 – Loss: 2.1178e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 23/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.2115e+00
+  Batch 30/100 – Loss: 2.1021e+00
+  Batch 40/100 – Loss: 2.0709e+00
+  Batch 50/100 – Loss: 2.1178e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1646e+00
+  Batch 80/100 – Loss: 2.2271e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1788e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 24/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.2271e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1334e+00
+  Batch 60/100 – Loss: 2.2115e+00
+  Batch 70/100 – Loss: 2.1178e+00
+  Batch 80/100 – Loss: 2.0865e+00
+  Batch 90/100 – Loss: 2.1490e+00
+  Batch 100/100 – Loss: 2.0677e+00
+Train Loss: 2.1519e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 25/50 ---
+  Batch 10/100 – Loss: 2.1178e+00
+  Batch 20/100 – Loss: 2.1021e+00
+  Batch 30/100 – Loss: 2.2271e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.0084e+00
+  Batch 60/100 – Loss: 2.1490e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1629e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 26/50 ---
+  Batch 10/100 – Loss: 2.0553e+00
+  Batch 20/100 – Loss: 2.1334e+00
+  Batch 30/100 – Loss: 2.1021e+00
+  Batch 40/100 – Loss: 2.2115e+00
+  Batch 50/100 – Loss: 2.1021e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1629e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 27/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.1803e+00
+  Batch 30/100 – Loss: 2.1490e+00
+  Batch 40/100 – Loss: 2.1803e+00
+  Batch 50/100 – Loss: 2.1646e+00
+  Batch 60/100 – Loss: 2.0396e+00
+  Batch 70/100 – Loss: 2.1646e+00
+  Batch 80/100 – Loss: 2.1959e+00
+  Batch 90/100 – Loss: 2.1959e+00
+  Batch 100/100 – Loss: 2.2105e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 28/50 ---
+  Batch 10/100 – Loss: 2.0553e+00
+  Batch 20/100 – Loss: 2.0553e+00
+  Batch 30/100 – Loss: 2.1959e+00
+  Batch 40/100 – Loss: 2.1334e+00
+  Batch 50/100 – Loss: 2.1959e+00
+  Batch 60/100 – Loss: 2.1334e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1178e+00
+  Batch 90/100 – Loss: 2.1178e+00
+  Batch 100/100 – Loss: 2.1470e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 29/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.1803e+00
+  Batch 30/100 – Loss: 2.1021e+00
+  Batch 40/100 – Loss: 2.1178e+00
+  Batch 50/100 – Loss: 2.1646e+00
+  Batch 60/100 – Loss: 2.2115e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1021e+00
+  Batch 90/100 – Loss: 2.2740e+00
+  Batch 100/100 – Loss: 2.0359e+00
+Train Loss: 2.1519e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 30/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.1803e+00
+  Batch 30/100 – Loss: 2.1334e+00
+  Batch 40/100 – Loss: 2.1021e+00
+  Batch 50/100 – Loss: 2.1646e+00
+  Batch 60/100 – Loss: 2.1178e+00
+  Batch 70/100 – Loss: 2.1178e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.0396e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 31/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.2115e+00
+  Batch 30/100 – Loss: 2.1803e+00
+  Batch 40/100 – Loss: 2.1021e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.1490e+00
+  Batch 70/100 – Loss: 2.2271e+00
+  Batch 80/100 – Loss: 2.1178e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 32/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.0865e+00
+  Batch 30/100 – Loss: 2.2115e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1490e+00
+  Batch 60/100 – Loss: 2.1178e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1803e+00
+  Batch 90/100 – Loss: 2.1021e+00
+  Batch 100/100 – Loss: 2.1470e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 33/50 ---
+  Batch 10/100 – Loss: 2.1959e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.1959e+00
+  Batch 40/100 – Loss: 2.1178e+00
+  Batch 50/100 – Loss: 2.0553e+00
+  Batch 60/100 – Loss: 2.1334e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.1959e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1629e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 34/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.0865e+00
+  Batch 30/100 – Loss: 2.1021e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.1959e+00
+  Batch 60/100 – Loss: 2.1334e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1803e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.1788e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 35/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.2428e+00
+  Batch 30/100 – Loss: 2.1490e+00
+  Batch 40/100 – Loss: 2.1646e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.1334e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1021e+00
+  Batch 90/100 – Loss: 2.0865e+00
+  Batch 100/100 – Loss: 2.1470e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 36/50 ---
+  Batch 10/100 – Loss: 2.1490e+00
+  Batch 20/100 – Loss: 2.1959e+00
+  Batch 30/100 – Loss: 2.0865e+00
+  Batch 40/100 – Loss: 2.2115e+00
+  Batch 50/100 – Loss: 2.1646e+00
+  Batch 60/100 – Loss: 2.1334e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.2115e+00
+  Batch 100/100 – Loss: 2.1629e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 37/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.1646e+00
+  Batch 30/100 – Loss: 2.1490e+00
+  Batch 40/100 – Loss: 2.1803e+00
+  Batch 50/100 – Loss: 2.1021e+00
+  Batch 60/100 – Loss: 2.0709e+00
+  Batch 70/100 – Loss: 2.1959e+00
+  Batch 80/100 – Loss: 2.1646e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 38/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.0709e+00
+  Batch 30/100 – Loss: 2.1803e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1178e+00
+  Batch 60/100 – Loss: 2.1490e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1490e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 39/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.1646e+00
+  Batch 30/100 – Loss: 2.0709e+00
+  Batch 40/100 – Loss: 2.2271e+00
+  Batch 50/100 – Loss: 2.1334e+00
+  Batch 60/100 – Loss: 2.1021e+00
+  Batch 70/100 – Loss: 2.1646e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1803e+00
+  Batch 100/100 – Loss: 2.1629e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 40/50 ---
+  Batch 10/100 – Loss: 2.1021e+00
+  Batch 20/100 – Loss: 2.1646e+00
+  Batch 30/100 – Loss: 2.1803e+00
+  Batch 40/100 – Loss: 2.1021e+00
+  Batch 50/100 – Loss: 2.1803e+00
+  Batch 60/100 – Loss: 2.1803e+00
+  Batch 70/100 – Loss: 2.1646e+00
+  Batch 80/100 – Loss: 2.1334e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 41/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.1646e+00
+  Batch 30/100 – Loss: 2.0709e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1490e+00
+  Batch 60/100 – Loss: 2.1490e+00
+  Batch 70/100 – Loss: 2.1803e+00
+  Batch 80/100 – Loss: 2.1646e+00
+  Batch 90/100 – Loss: 2.2115e+00
+  Batch 100/100 – Loss: 2.1470e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 42/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.1021e+00
+  Batch 40/100 – Loss: 2.2115e+00
+  Batch 50/100 – Loss: 2.1959e+00
+  Batch 60/100 – Loss: 2.0865e+00
+  Batch 70/100 – Loss: 2.1178e+00
+  Batch 80/100 – Loss: 2.1646e+00
+  Batch 90/100 – Loss: 2.1021e+00
+  Batch 100/100 – Loss: 2.0835e+00
+Train Loss: 2.1519e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 43/50 ---
+  Batch 10/100 – Loss: 2.1334e+00
+  Batch 20/100 – Loss: 2.1959e+00
+  Batch 30/100 – Loss: 2.1021e+00
+  Batch 40/100 – Loss: 2.1803e+00
+  Batch 50/100 – Loss: 2.1021e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1178e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 44/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.1021e+00
+  Batch 30/100 – Loss: 2.1490e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1646e+00
+  Batch 60/100 – Loss: 2.1334e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.2115e+00
+  Batch 90/100 – Loss: 2.1178e+00
+  Batch 100/100 – Loss: 2.1312e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 45/50 ---
+  Batch 10/100 – Loss: 2.1178e+00
+  Batch 20/100 – Loss: 2.1334e+00
+  Batch 30/100 – Loss: 2.1646e+00
+  Batch 40/100 – Loss: 2.1490e+00
+  Batch 50/100 – Loss: 2.1178e+00
+  Batch 60/100 – Loss: 2.1959e+00
+  Batch 70/100 – Loss: 2.1334e+00
+  Batch 80/100 – Loss: 2.2271e+00
+  Batch 90/100 – Loss: 2.0865e+00
+  Batch 100/100 – Loss: 2.0835e+00
+Train Loss: 2.1519e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 46/50 ---
+  Batch 10/100 – Loss: 2.1178e+00
+  Batch 20/100 – Loss: 2.1803e+00
+  Batch 30/100 – Loss: 2.2428e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.0553e+00
+  Batch 60/100 – Loss: 2.1646e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1490e+00
+  Batch 100/100 – Loss: 2.1470e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 47/50 ---
+  Batch 10/100 – Loss: 2.1178e+00
+  Batch 20/100 – Loss: 2.1334e+00
+  Batch 30/100 – Loss: 2.2115e+00
+  Batch 40/100 – Loss: 2.2115e+00
+  Batch 50/100 – Loss: 2.0865e+00
+  Batch 60/100 – Loss: 2.2115e+00
+  Batch 70/100 – Loss: 2.0865e+00
+  Batch 80/100 – Loss: 2.1490e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 48/50 ---
+  Batch 10/100 – Loss: 2.1803e+00
+  Batch 20/100 – Loss: 2.1803e+00
+  Batch 30/100 – Loss: 2.1334e+00
+  Batch 40/100 – Loss: 2.0865e+00
+  Batch 50/100 – Loss: 2.1334e+00
+  Batch 60/100 – Loss: 2.1803e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1803e+00
+  Batch 90/100 – Loss: 2.1178e+00
+  Batch 100/100 – Loss: 2.1153e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 49/50 ---
+  Batch 10/100 – Loss: 2.1334e+00
+  Batch 20/100 – Loss: 2.1490e+00
+  Batch 30/100 – Loss: 2.1178e+00
+  Batch 40/100 – Loss: 2.1959e+00
+  Batch 50/100 – Loss: 2.1178e+00
+  Batch 60/100 – Loss: 2.1178e+00
+  Batch 70/100 – Loss: 2.1021e+00
+  Batch 80/100 – Loss: 2.1021e+00
+  Batch 90/100 – Loss: 2.1334e+00
+  Batch 100/100 – Loss: 2.0994e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+--------------------------------
+--- Epoch 50/50 ---
+  Batch 10/100 – Loss: 2.1646e+00
+  Batch 20/100 – Loss: 2.1959e+00
+  Batch 30/100 – Loss: 2.1959e+00
+  Batch 40/100 – Loss: 2.2271e+00
+  Batch 50/100 – Loss: 2.1021e+00
+  Batch 60/100 – Loss: 2.1959e+00
+  Batch 70/100 – Loss: 2.1490e+00
+  Batch 80/100 – Loss: 2.0709e+00
+  Batch 90/100 – Loss: 2.1646e+00
+  Batch 100/100 – Loss: 2.1946e+00
+Train Loss: 2.1520e+00 | Val Loss: 2.1280e+00
+Train Accuracy: 0.1221 | Val Accuracy: 0.1427
+Modèle sauvegardé : results/improved/weights/weights_1.pth
+--- Entraînement Improved terminé ---
