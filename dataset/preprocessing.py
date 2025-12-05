@@ -1,12 +1,13 @@
 import os
 import numpy as np
+# torch et torch.nn.functional ne sont plus nécessaires ici
 import pandas as pd
 import librosa
 from tqdm import tqdm  
 
+# MISE À JOUR : Nouveaux chemins de sortie
 DATASET_DIR = "metadata/fma_small"
 TRACKS_CSV = "metadata/tracks.csv"
-# MISE À JOUR : Nouveaux chemins de sortie
 OUTPUT_MEL = "dataset/data/mel_specs.npy"
 OUTPUT_DELTA1 = "dataset/data/mel_delta1.npy"
 OUTPUT_DELTA2 = "dataset/data/mel_delta2.npy"
@@ -69,8 +70,8 @@ def preprocess_dataset():
     genres, mapping = load_genre_labels(TRACKS_CSV)
 
     mel_specs = []
-    delta1_specs = [] # NOUVEAU
-    delta2_specs = [] # NOUVEAU
+    delta1_specs = [] 
+    delta2_specs = [] 
     labels = []
 
     # liste tous les fichiers mp3 d’abord
@@ -89,17 +90,25 @@ def preprocess_dataset():
             continue
 
         try:
-            mel, delta1, delta2 = preprocess_track(track_path) # Réception des 3
+            # Tente de calculer les 3 features
+            mel, delta1, delta2 = preprocess_track(track_path) 
+            
+            # Si le calcul a réussi, on procède à l'ajout ATOMIQUE des 4 éléments
             mel_specs.append(mel)
-            delta1_specs.append(delta1) # Ajout
-            delta2_specs.append(delta2) # Ajout
+            delta1_specs.append(delta1) 
+            delta2_specs.append(delta2) 
             labels.append(mapping[genre])
+            
         except Exception as e:
+            # Si une erreur (librosa.load, etc.) survient, l'échantillon est ignoré
+            # pour toutes les listes.
             print(f"Erreur avec {track_path} : {e}")
+            continue # Passe à la piste suivante
+
 
     mel_specs = np.array(mel_specs, dtype=np.float32)
-    delta1_specs = np.array(delta1_specs, dtype=np.float32) # Conversion
-    delta2_specs = np.array(delta2_specs, dtype=np.float32) # Conversion
+    delta1_specs = np.array(delta1_specs, dtype=np.float32) 
+    delta2_specs = np.array(delta2_specs, dtype=np.float32) 
     labels = np.array(labels, dtype=np.int64)
 
     # SAUVEGARDE DES 3 FICHIERS DE FEATURES

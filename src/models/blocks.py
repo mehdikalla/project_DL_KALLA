@@ -74,8 +74,7 @@ class Res_Block(nn.Module):
         for conv, bn in zip(self.convs, self.bns):
             x_sum +=bn(conv(x))  # somme des sorties multiscales
         x = F.relu(x_sum)
-        x = F.relu(x)
-        x = self.pool(x)
-        x = self.dropout(x)
         x = tc.add(x,residual)
+        x = self.dropout(x)
+        x = self.pool(x)
         return x

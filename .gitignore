@@ -12,6 +12,8 @@ dl_env/
 metadata/tracks.csv
 metadata/fma_small/
 
+dataset/data/mel_delta1.npy
+dataset/data/mel_delta1.npy
 dataset/data/mel_specs.npy
 dataset/data/labels.npy
 
