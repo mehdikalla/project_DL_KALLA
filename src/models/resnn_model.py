@@ -2,7 +2,7 @@ import torch.nn as nn
 from .blocks import FC_Block, Res_Block 
 
 class ResNN_model(nn.Module):
-    def __init__(self, in_channels=3, num_classes=8):
+    def __init__(self, in_channels=2, num_classes=8):
         super().__init__()
 
         # Définition des blocs résiduels

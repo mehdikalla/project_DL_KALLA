@@ -8,12 +8,12 @@ results/improved/weights/
 results/logs/
 results/samples/
 dl_env/
+
 # Ignorer les fichiers de données brutes
 metadata/tracks.csv
 metadata/fma_small/
 
-dataset/data/mel_specs.npy
-dataset/data/labels.npy
+dataset/data/*
 
 # Ignorer les fichiers de cache Python
 src/utils/__pycache__/
@@ -27,6 +27,7 @@ run_baseline.slurm
 run_improved.slurm
 
 # Ne pas ignorer les dossiers
+!dataset/data/.gitkeep
 !results/baseline/plots/.gitkeep
 !results/baseline/logs/.gitkeep
 !results/baseline/weights/.gitkeep

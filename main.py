@@ -31,25 +31,25 @@ def main():
     PLOTS_PATH = os.path.join(BASE_PATH, "plots")
     LOGS_PATH = os.path.join(BASE_PATH, "logs")
     
-    # Correction: Le dossier 'weights' est inclus dans le chemin du fichier pour plus de clarté,
-    # mais la vérification de version doit se faire sur un chemin simple.
+    # Correction: Le dossier 'weights' est inclus dans le chemin du fichier pour plus de clarté.
     WEIGHTS_DIR = os.path.join(BASE_PATH, "weights") # Ajout d'une variable pour le dossier
 
-    # --- VERSIONING SIMPLE (AJOUTÉ) ---
+
+    
+    # --- VERSIONING SIMPLE ---
     # On cherche le premier numéro disponible : 1, 2, 3...
     version = 1
-    # CORRECTION 1: On vérifie l'existence dans le dossier WEIGHTS_DIR, pas BASE_PATH, 
-    # pour que l'incrémentation soit correcte dans le bon dossier.
+    # On vérifie l'existence dans le dossier WEIGHTS_DIR
     while os.path.exists(os.path.join(WEIGHTS_DIR, f"weights_{version}.pth")): 
         version += 1
     
-    # Si on est en mode TEST, on veut prendre la dernière version existante (celle d'avant), pas la nouvelle
+    # Si on est en mode TEST, on prend la dernière version existante
     if args.mode == "test" and version > 1:
         version -= 1
     
     print(f"--- Exécution version : {version} ---")
     
-    # CORRECTION 2: Simplification des noms de fichiers. Le numéro de version est intégré UNE SEULE FOIS.
+    # Construction des chemins des fichiers
     WEIGHTS_FILE_PATH = os.path.join(WEIGHTS_DIR, f"weights_{version}.pth")
     PLOT_LOSS_PATH = os.path.join(PLOTS_PATH, f"loss_curve_{version}.png")
     PLOT_ACC_PATH = os.path.join(PLOTS_PATH, f"accuracy_curve_{version}.png")
@@ -68,34 +68,33 @@ def main():
     feature_paths = [args.features] # Par défaut: seulement le Mel-spec (pour 'baseline')
 
     if args.model == "improved":
-        # Dérive les chemins pour Delta et Delta-Delta à partir du chemin du Mel-spec
+        # Dérive le chemin pour la Chroma Feature
         mel_path = args.features
-        # La convention de nommage du preprocessing.py est utilisée ici
-        delta1_path = mel_path.replace("mel_specs", "mel_delta1") 
-        delta2_path = mel_path.replace("mel_specs", "mel_delta2") 
+        # Le fichier Chroma doit être nommé chroma_stft.npy
+        chroma_path = mel_path.replace("mel_specs", "chroma_stft") 
 
-        # Vérification si les fichiers Delta existent
-        if not os.path.exists(delta1_path) or not os.path.exists(delta2_path):
-            raise FileNotFoundError(f"Fichiers Delta nécessaires pour le modèle 'improved' introuvables : {delta1_path} ou {delta2_path}. Exécutez 'python main.py --mode preprocess' pour les générer.")
+        # Vérification si le fichier Chroma existe
+        if not os.path.exists(chroma_path):
+            raise FileNotFoundError(f"Fichier Chroma nécessaire pour le modèle 'improved' introuvable : {chroma_path}. Exécutez 'python main.py --mode preprocess' pour le générer.")
             
-        feature_paths = [mel_path, delta1_path, delta2_path] # Liste de 3 chemins
+        feature_paths = [mel_path, chroma_path] # Liste de 2 chemins
     # -----------------------------------------------------------
+
 
     # La fonction main_network doit retourner l'instance de votre classe CNNet/ResNet
     net = main_network(MODEL_NAME, device) 
-    
-    # L'appel à create_loaders est mis à jour pour accepter la liste feature_paths
-    net.create_loaders(feature_paths, args.labels, args.batch_size, args.max_length) 
+    # create_loaders accepte maintenant une liste de chemins
+    net.create_loaders(feature_paths, args.labels, args.batch_size, args.max_length)
 
     if args.mode == "train":
         # Crée les dossiers nécessaires
         os.makedirs(PLOTS_PATH, exist_ok=True)
         os.makedirs(LOGS_PATH, exist_ok=True)
-        os.makedirs(WEIGHTS_DIR, exist_ok=True) # AJOUT: Crée le dossier des poids
+        os.makedirs(WEIGHTS_DIR, exist_ok=True) 
         
         train_losses, val_losses, train_accuracy, val_accuracy = net.train(num_epochs=args.epochs)
         
-        # Les variables PATH sont maintenant complètes et n'incluent pas de double extension
+        # Sauvegarde des courbes et logs
         plot_loss_curve(train_losses, val_losses, save_path=PLOT_LOSS_PATH)
         plot_metrics_curve(
             metrics={"train": train_accuracy, "val": val_accuracy},
@@ -105,6 +104,7 @@ def main():
         logs = {"train_loss": train_losses, "val_loss": val_losses, "train_accuracy": train_accuracy, "val_accuracy": val_accuracy}
         save_logs(logs, file_path=LOGS_FILE_PATH)
         
+        # Sauvegarde du modèle
         torch.save(net.model.state_dict(), WEIGHTS_FILE_PATH)
         print(f"Modèle sauvegardé : {WEIGHTS_FILE_PATH}")
 
