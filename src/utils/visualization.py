@@ -2,6 +2,8 @@ import os
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
+# Fonctions de visualisation des courbes et des échantillons
+
 def _unique_path(path):
     base, ext = os.path.splitext(path)
     k = 1

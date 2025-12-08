@@ -2,6 +2,7 @@ import torch as tc
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Classes de blocs de construction pour les modèles
 class Conv_Block(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=3, padding=1, pool_size=2, dropout_prob=0.4):
         """ 

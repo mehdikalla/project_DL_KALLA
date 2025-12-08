@@ -14,13 +14,13 @@ class CNN_model(nn.Module):
         self.conv_layers = nn.Sequential(
             Conv_Block(in_channels, 32),
             Conv_Block(32, 64, pool_size=4),
-            Conv_Block(64, 128, pool_size=4))  # Réduction plus agressive
+            Conv_Block(64, 128, pool_size=4))  
 
-        # Définition des blocs fully connected
+        # Définition du FC
         self.fc = FC_Block([128*4*4 , 256, num_classes])  
         
     def forward(self, x):
         x = self.conv_layers(x)
-        x = x.view(x.size(0), -1)  # Aplatir les tenseurs
+        x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x

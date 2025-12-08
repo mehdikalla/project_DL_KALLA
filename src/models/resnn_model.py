@@ -12,11 +12,11 @@ class ResNN_model(nn.Module):
             Res_Block(32, 64, pool_size=4),
             Res_Block(64, 128, pool_size=4))
         
-        # Le FC_Block utilise 128 entrées
+        # Définition du FC
         self.fc = FC_Block([128*4*4, 128*4, 256, num_classes]) 
     
     def forward(self, x):
         x = self.res_layers(x)
-        x = x.view(x.size(0), -1)    # Aplatir (la dimension est maintenant 128)
+        x = x.view(x.size(0), -1)    
         x = self.fc(x)
         return x

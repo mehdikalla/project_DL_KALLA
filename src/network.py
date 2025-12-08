@@ -5,6 +5,7 @@ from src.models.resnn_model import ResNN_model
 from dataset.data_loader import get_dataloaders
 from src.utils.metrics import accuracy
 
+# Classe principale pour gérer le réseau, l'entraînement, la validation et le test
 class main_network():
     def __init__(self, model_name, device):
         self.device = device
@@ -42,7 +43,6 @@ class main_network():
             # ------- TRAIN -------
             self.model.train()
             batch_losses = []
-            # CORRECTION : Accumuler les résultats de TOUS les batches de l'époque
             Y_true_epoch, Y_pred_epoch = [], [] 
 
             for batch_idx, batch in enumerate(self.train_loader,1):
@@ -58,12 +58,10 @@ class main_network():
                 if batch_idx % 10 == 0:
                     print(f"  Batch {batch_idx}/{len(self.train_loader)} – Loss: {loss.item():.4e}")
                 
-                # CORRECTION : Stockage
                 Y_true_epoch.extend(labels.cpu().numpy())
                 Y_pred_epoch.extend(tc.argmax(outputs, dim=1).cpu().numpy())
                 
             train_losses.append(sum(batch_losses)/len(batch_losses))
-            # CORRECTION : Calculer l'accuracy sur TOUTES les prédictions accumulées
             acc_train = accuracy(tc.tensor(Y_true_epoch), tc.tensor(Y_pred_epoch))
             train_accuracy.append(acc_train)
 
@@ -73,7 +71,6 @@ class main_network():
             # ------- VALIDATION -------
             self.model.eval()
             val_batch_losses = []
-            # CORRECTION : Accumuler les résultats de TOUS les batches de l'époque
             Y_true_val_epoch, Y_pred_val_epoch = [], [] 
 
             with tc.no_grad():
@@ -85,12 +82,10 @@ class main_network():
                     
                     val_batch_losses.append(loss.item())
                     
-                    # CORRECTION : Stockage
                     Y_true_val_epoch.extend(labels.cpu().numpy())
                     Y_pred_val_epoch.extend(tc.argmax(outputs, dim=1).cpu().numpy())
 
             val_losses.append(sum(val_batch_losses)/len(val_batch_losses))
-            # CORRECTION : Calculer l'accuracy sur TOUTES les prédictions accumulées
             acc_val = accuracy(tc.tensor(Y_true_val_epoch), tc.tensor(Y_pred_val_epoch))
             val_accuracy.append(acc_val)
             
@@ -108,7 +103,6 @@ class main_network():
     def test(self):
         self.model.eval()
         losses = []
-        # CORRECTION : Accumuler les résultats de TOUS les batches de test
         Y_true_epoch, Y_pred_epoch = [], []
 
         with tc.no_grad():
@@ -120,13 +114,11 @@ class main_network():
                 
                 losses.append(loss.item())
                 
-                # CORRECTION : Stockage
                 Y_true_epoch.extend(labels.cpu().numpy())
                 Y_pred_epoch.extend(tc.argmax(outputs, dim=1).cpu().numpy())
 
         print(f"Test Loss: {sum(losses)/len(losses):.4e}")
 
-        # CORRECTION : Calculer l'accuracy sur TOUTES les prédictions accumulées
         acc = accuracy(tc.tensor(Y_true_epoch), tc.tensor(Y_pred_epoch))
         
         # Nettoyage des valeurs pour le print

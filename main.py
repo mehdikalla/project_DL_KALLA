@@ -16,8 +16,6 @@ def set_seed(seed=42):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed) 
-    
-    # Force PyTorch à être déterministe 
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
     print(f"--- Seed fixée à {seed} ---")
@@ -46,20 +44,13 @@ def main():
     BASE_PATH = os.path.join(args.save_path, MODEL_NAME)
     PLOTS_PATH = os.path.join(BASE_PATH, "plots")
     LOGS_PATH = os.path.join(BASE_PATH, "logs")
-    
-    # Correction: Le dossier 'weights' est inclus dans le chemin du fichier pour plus de clarté.
-    WEIGHTS_DIR = os.path.join(BASE_PATH, "weights") # Ajout d'une variable pour le dossier
+    WEIGHTS_DIR = os.path.join(BASE_PATH, "weights")
 
-
-    
     # --- VERSIONING SIMPLE ---
-    # On cherche le premier numéro disponible : 1, 2, 3...
     version = 1
     # On vérifie l'existence dans le dossier WEIGHTS_DIR
     while os.path.exists(os.path.join(WEIGHTS_DIR, f"weights_{version}.pth")): 
         version += 1
-    
-    # Si on est en mode TEST, on prend la dernière version existante
     if args.mode == "test" and version > 1:
         version -= 1
     
@@ -80,28 +71,24 @@ def main():
     if not os.path.exists(args.features) or not os.path.exists(args.labels):
         raise FileNotFoundError("Données non trouvées.")
 
-    # --- NOUVEAU: Logique de sélection des chemins de features ---
     feature_paths = [args.features] 
 
+    # Recherche des features
     if args.model == "improved":
         mel_path = args.features
-        # On cherche le fichier CQT maintenant
         cqt_path = mel_path.replace("mel_specs", "cqt_specs") 
 
         if not os.path.exists(cqt_path):
             raise FileNotFoundError(f"Fichier CQT introuvable : {cqt_path}. Relancez le preprocess.")
             
-        feature_paths = [mel_path, cqt_path] # Liste de 2 chemins (Mel + CQT)
+        feature_paths = [mel_path, cqt_path] 
     # -----------------------------------------------------------
 
 
-    # La fonction main_network doit retourner l'instance de votre classe CNNet/ResNet
     net = main_network(MODEL_NAME, device) 
-    # create_loaders accepte maintenant une liste de chemins
     net.create_loaders(feature_paths, args.labels, args.batch_size, args.max_length)
 
     if args.mode == "train":
-        # Crée les dossiers nécessaires
         os.makedirs(PLOTS_PATH, exist_ok=True)
         os.makedirs(LOGS_PATH, exist_ok=True)
         os.makedirs(WEIGHTS_DIR, exist_ok=True) 

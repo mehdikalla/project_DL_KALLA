@@ -4,16 +4,15 @@ import pandas as pd
 import librosa
 from tqdm import tqdm  
 
+# Configuration des chemins et des paramètres
 DATASET_DIR = "metadata/fma_small"
 TRACKS_CSV = "metadata/tracks.csv"
 OUTPUT_MEL = "dataset/data/mel_specs.npy"
-# Changement de nom pour refléter la nouvelle feature
 OUTPUT_CQT = "dataset/data/cqt_specs.npy" 
 OUTPUT_LABELS = "dataset/data/labels.npy"
 
 SR = 22050
 N_MELS = 128
-# CQT Config : 7 octaves * 12 notes = 84 bins
 N_CQT_BINS = 84 
 BINS_PER_OCTAVE = 12
 
@@ -21,25 +20,24 @@ N_FFT = 2048
 HOP_LENGTH = 512
 MAX_LEN = 128
 
-
+# Fonction pour charger les étiquettes de genre
 def load_genre_labels(csv_path):
     df = pd.read_csv(csv_path, index_col=0, header=[0, 1])
     genres = df['track']['genre_top']
     mapping = {g: i for i, g in enumerate(sorted(genres.dropna().unique()))}
     return genres, mapping
 
-
+# Fonction de prétraitement pour une piste audio
 def preprocess_track(path):
     y, sr = librosa.load(path, sr=SR)
     
-    # 1. Mel-spectrogramme (Timbre / Physique)
+    # 1. Mel-spectrogramme 
     mel = librosa.feature.melspectrogram(
         y=y, sr=sr, n_fft=N_FFT, hop_length=HOP_LENGTH, n_mels=N_MELS
     )
     mel = librosa.power_to_db(mel, ref=np.max)
 
-    # 2. Constant-Q Transform (Pitch / Musical "Overcomplete")
-    # Contrairement au Chroma, on garde les octaves séparées (84 bins)
+    # 2. Constant-Q Transform
     cqt = librosa.cqt(
         y=y, sr=sr, 
         hop_length=HOP_LENGTH, 
@@ -58,15 +56,12 @@ def preprocess_track(path):
     for i, feature in enumerate(features):
         
         # --- PADDING VERTICAL POUR CQT ---
-        # CQT fait 84 de haut, on veut 128 pour le CNN
         if i == 1: 
-            pad_height = N_MELS - feature.shape[0] # 128 - 84 = 44
-            # On centre l'info : 22 pixels en haut, 22 en bas
+            pad_height = N_MELS - feature.shape[0]
             pad_top = pad_height // 2
             pad_bottom = pad_height - pad_top
             feature = np.pad(feature, ((pad_bottom, pad_top), (0, 0)), mode='constant')
             
-        # Padding Temporel (Axe 1)
         if feature.shape[1] < MAX_LEN:
             pad_width = MAX_LEN - feature.shape[1]
             feature = np.pad(feature, ((0, 0), (0, pad_width)))
@@ -77,7 +72,7 @@ def preprocess_track(path):
 
     return processed_features[0], processed_features[1]
 
-
+# Fonction principale de prétraitement du dataset
 def preprocess_dataset():
     genres, mapping = load_genre_labels(TRACKS_CSV)
 
@@ -117,10 +112,10 @@ def preprocess_dataset():
 
     print("\nPréprocessing terminé.")
     print("Shape mel_specs :", mel_specs.shape)
-    print("Shape cqt_specs :", cqt_specs.shape) # Doit être (N, 128, 128)
+    print("Shape cqt_specs :", cqt_specs.shape) # (N, 128, 128)
     print("Shape labels :", labels.shape)
 
-# La fonction relabel reste inchangée mais doit être présente
+# Fonction pour remapper les étiquettes de genre
 def relabel(labels_path):
     labels = np.load(labels_path)
     unique_labels = np.unique(labels)

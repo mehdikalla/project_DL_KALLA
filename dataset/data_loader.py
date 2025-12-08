@@ -1,5 +1,3 @@
-# Fichier : dataset/data_loader.py (à modifier)
-
 import torch as tc
 from torch.utils.data import Dataset, DataLoader, random_split
 import numpy as np
@@ -49,8 +47,6 @@ class FMADataset(Dataset):
         else:
             # Modèle Improved (2 canaux) : Empile les features [Mel, Chroma] -> [2, 128, 128]
             spec = np.stack(feature_list, axis=0) 
-
-        # Note: Le padding/truncation est supposé avoir été fait en preprocessing
 
         if self.transform:
             spec = self.transform(spec)

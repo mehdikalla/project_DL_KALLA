@@ -1,14 +1,5 @@
 import os
 
-def _unique_path(path):
-    base, ext = os.path.splitext(path)
-    k = 1
-    new_path = path
-    while os.path.exists(new_path):
-        new_path = f"{base}_{k}{ext}"
-        k += 1
-    return new_path
-
 def accuracy(y_true, y_pred):
     """
     Calcule la précision entre les étiquettes vraies et prédites.
