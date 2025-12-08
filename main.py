@@ -65,19 +65,17 @@ def main():
         raise FileNotFoundError("Données non trouvées.")
 
     # --- NOUVEAU: Logique de sélection des chemins de features ---
-    feature_paths = [args.features] # Par défaut: seulement le Mel-spec (pour 'baseline')
+    feature_paths = [args.features] 
 
     if args.model == "improved":
-        # Dérive le chemin pour la Chroma Feature
         mel_path = args.features
-        # Le fichier Chroma doit être nommé chroma_stft.npy
-        chroma_path = mel_path.replace("mel_specs", "chroma_stft") 
+        # On cherche le fichier CQT maintenant
+        cqt_path = mel_path.replace("mel_specs", "cqt_specs") 
 
-        # Vérification si le fichier Chroma existe
-        if not os.path.exists(chroma_path):
-            raise FileNotFoundError(f"Fichier Chroma nécessaire pour le modèle 'improved' introuvable : {chroma_path}. Exécutez 'python main.py --mode preprocess' pour le générer.")
+        if not os.path.exists(cqt_path):
+            raise FileNotFoundError(f"Fichier CQT introuvable : {cqt_path}. Relancez le preprocess.")
             
-        feature_paths = [mel_path, chroma_path] # Liste de 2 chemins
+        feature_paths = [mel_path, cqt_path] # Liste de 2 chemins (Mel + CQT)
     # -----------------------------------------------------------
 
 

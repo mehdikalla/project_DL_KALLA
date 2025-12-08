@@ -13,10 +13,10 @@ class ResNN_model(nn.Module):
 
         # AJOUT MAJEUR : Pooling pour réduire 16x16 à 1x1 
         # (Réduit 32768 paramètres à 128)
-        self.final_pool = nn.MaxPool2d(kernel_size=8) 
+        self.final_pool = nn.MaxPool2d(kernel_size=4) 
 
         # Le FC_Block utilise désormais 128 entrées (au lieu de 32768)
-        self.fc = FC_Block([128*4, 256, num_classes]) 
+        self.fc = FC_Block([128*4*4, 128*4, 256, num_classes]) 
     
     def forward(self, x):
         x = self.res_layers(x)

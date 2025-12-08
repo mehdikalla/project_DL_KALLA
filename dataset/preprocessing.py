@@ -7,15 +7,19 @@ from tqdm import tqdm
 DATASET_DIR = "metadata/fma_small"
 TRACKS_CSV = "metadata/tracks.csv"
 OUTPUT_MEL = "dataset/data/mel_specs.npy"
-OUTPUT_CHROMA = "dataset/data/chroma_stft.npy"
+# Changement de nom pour refléter la nouvelle feature
+OUTPUT_CQT = "dataset/data/cqt_specs.npy" 
 OUTPUT_LABELS = "dataset/data/labels.npy"
 
 SR = 22050
 N_MELS = 128
-N_CHROMA = 12 
+# CQT Config : 7 octaves * 12 notes = 84 bins
+N_CQT_BINS = 84 
+BINS_PER_OCTAVE = 12
+
 N_FFT = 2048
 HOP_LENGTH = 512
-MAX_LEN = 128  # longueur temporelle
+MAX_LEN = 128
 
 
 def load_genre_labels(csv_path):
@@ -28,39 +32,41 @@ def load_genre_labels(csv_path):
 def preprocess_track(path):
     y, sr = librosa.load(path, sr=SR)
     
-    # 1. Mel-spectrogramme (Timbre)
+    # 1. Mel-spectrogramme (Timbre / Physique)
     mel = librosa.feature.melspectrogram(
         y=y, sr=sr, n_fft=N_FFT, hop_length=HOP_LENGTH, n_mels=N_MELS
     )
     mel = librosa.power_to_db(mel, ref=np.max)
 
-    # 2. Chroma Features (Harmonie)
-    chroma = librosa.feature.chroma_stft(
-        y=y, sr=sr, n_fft=N_FFT, hop_length=HOP_LENGTH, n_chroma=N_CHROMA
+    # 2. Constant-Q Transform (Pitch / Musical "Overcomplete")
+    # Contrairement au Chroma, on garde les octaves séparées (84 bins)
+    cqt = librosa.cqt(
+        y=y, sr=sr, 
+        hop_length=HOP_LENGTH, 
+        n_bins=N_CQT_BINS, 
+        bins_per_octave=BINS_PER_OCTAVE
     )
+    cqt = librosa.amplitude_to_db(np.abs(cqt), ref=np.max)
     
     # Normalisation
     mel = (mel - mel.mean()) / (mel.std() + 1e-6)
-    chroma = (chroma - chroma.mean()) / (chroma.std() + 1e-6)
+    cqt = (cqt - cqt.mean()) / (cqt.std() + 1e-6)
     
-    features = [mel, chroma]
+    features = [mel, cqt]
     processed_features = []
     
     for i, feature in enumerate(features):
         
-        # --- CORRECTION MAJEURE : ÉTIREMENT DU CHROMA ---
-        if i == 1: # Si c'est le Chroma (Shape [12, T])
-            # On répète chaque note 10 fois verticalement
-            # 12 notes * 10 = 120 pixels de haut
-            feature = np.repeat(feature, 10, axis=0)
+        # --- PADDING VERTICAL POUR CQT ---
+        # CQT fait 84 de haut, on veut 128 pour le CNN
+        if i == 1: 
+            pad_height = N_MELS - feature.shape[0] # 128 - 84 = 44
+            # On centre l'info : 22 pixels en haut, 22 en bas
+            pad_top = pad_height // 2
+            pad_bottom = pad_height - pad_top
+            feature = np.pad(feature, ((pad_bottom, pad_top), (0, 0)), mode='constant')
             
-            # Il manque 8 pixels pour atteindre 128 (128 - 120 = 8)
-            # On ajoute 4 pixels de padding en haut et 4 en bas pour centrer
-            feature = np.pad(feature, ((4, 4), (0, 0)), mode='constant')
-            
-            # Maintenant feature est [128, T], rempli d'infos utiles !
-            
-        # Padding Temporel (Axe 1 - Temps)
+        # Padding Temporel (Axe 1)
         if feature.shape[1] < MAX_LEN:
             pad_width = MAX_LEN - feature.shape[1]
             feature = np.pad(feature, ((0, 0), (0, pad_width)))
@@ -76,7 +82,7 @@ def preprocess_dataset():
     genres, mapping = load_genre_labels(TRACKS_CSV)
 
     mel_specs = []
-    chroma_specs = []
+    cqt_specs = [] 
     labels = []
 
     all_files = []
@@ -85,7 +91,7 @@ def preprocess_dataset():
             if file.endswith(".mp3"):
                 all_files.append(os.path.join(root, file))
 
-    for track_path in tqdm(all_files, desc="Preprocessing audio", ncols=100):
+    for track_path in tqdm(all_files, desc="Preprocessing CQT+Mel", ncols=100):
         track_id = int(os.path.splitext(os.path.basename(track_path))[0])
         genre = genres.get(track_id)
 
@@ -93,28 +99,28 @@ def preprocess_dataset():
             continue
 
         try:
-            mel, chroma = preprocess_track(track_path)
+            mel, cqt = preprocess_track(track_path)
             mel_specs.append(mel)
-            chroma_specs.append(chroma)
+            cqt_specs.append(cqt)
             labels.append(mapping[genre])
         except Exception as e:
             print(f"Erreur avec {track_path} : {e}")
             continue
 
     mel_specs = np.array(mel_specs, dtype=np.float32)
-    chroma_specs = np.array(chroma_specs, dtype=np.float32)
+    cqt_specs = np.array(cqt_specs, dtype=np.float32)
     labels = np.array(labels, dtype=np.int64)
 
     np.save(OUTPUT_MEL, mel_specs)
-    np.save(OUTPUT_CHROMA, chroma_specs)
+    np.save(OUTPUT_CQT, cqt_specs)
     np.save(OUTPUT_LABELS, labels)
 
     print("\nPréprocessing terminé.")
     print("Shape mel_specs :", mel_specs.shape)
-    print("Shape chroma_specs :", chroma_specs.shape)
+    print("Shape cqt_specs :", cqt_specs.shape) # Doit être (N, 128, 128)
     print("Shape labels :", labels.shape)
 
-
+# La fonction relabel reste inchangée mais doit être présente
 def relabel(labels_path):
     labels = np.load(labels_path)
     unique_labels = np.unique(labels)
