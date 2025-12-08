@@ -12,10 +12,10 @@ project_DL_KALLA/
 │   ├── data_loader.py      # PyTorch Dataset class and DataLoader generation
 │   ├── preprocessing.py    # Logic to extract Mel-specs and CQT from MP3s
 │   └── data/               # Folder where processed .npy files will be saved
-├── metadata/               # Folder for raw dataset (must be populated manually)
+├── metadata/               
 │   ├── fma_small/          # Directory containing the audio files (.mp3)
 │   └── tracks.csv          # Metadata file containing labels and genre info
-├── results/                # Output folder (auto-generated)
+├── results/                
 │   ├── baseline/           # Logs, plots, and weights for the baseline model
 │   ├── improved/           # Logs, plots, and weights for the improved model
 │   └── visualization/      # Debug visualizations
