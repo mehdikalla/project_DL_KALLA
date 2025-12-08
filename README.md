@@ -1,5 +1,5 @@
 # Deep Learning Project: Music Genre Classification
-
+### KALLA Mehdi - 3A CS ICE - 2025-2026
 This project implements a Convolutional Neural Network (CNN) pipeline to classify music genres using the FMA (Free Music Archive) dataset. It features two distinct architectures: a **Baseline** model (CNN) and an **Improved** model (ResNet).
 
 ## Project Structure
