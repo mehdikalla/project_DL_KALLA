@@ -43,7 +43,7 @@ class FC_Block(nn.Module):
         return x
     
 class Res_Block(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_sizes=(3,), padding=1, pool_size=2, dropout_prob=0.5):
+    def __init__(self, in_channels, out_channels, kernel_sizes=(3,5,7), padding=1, pool_size=2, dropout_prob=0.5):
         """
         Bloc résiduel autonome :
         - Convolutions avec BatchNorm + ReLU

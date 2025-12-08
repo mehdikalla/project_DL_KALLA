@@ -33,6 +33,7 @@ def plot_metrics_curve(metrics, metric_name='Accuracy', save_path='metrics_curve
     plt.plot(metrics['val'], label=f'Validation {metric_name}')
     plt.xlabel('Epochs')
     plt.ylabel(metric_name)
+    plt.ylim(0,1)
     plt.title(f'{metric_name} Curve')
     plt.legend()
     plt.grid(True)
