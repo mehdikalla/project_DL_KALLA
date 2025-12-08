@@ -5,7 +5,7 @@ results/baseline/weights/
 results/improved/plots/
 results/improved/logs/
 results/improved/weights/
-results/visualization/
+results/visualization/*
 results/logs/
 results/samples/
 
