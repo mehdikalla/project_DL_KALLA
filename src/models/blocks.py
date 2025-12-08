@@ -43,7 +43,7 @@ class FC_Block(nn.Module):
         return x
     
 class Res_Block(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_sizes=(3,5,7), padding=1, pool_size=2, dropout_prob=0.45):
+    def __init__(self, in_channels, out_channels, kernel_sizes=(3,7), padding=1, pool_size=2, dropout_prob=0.45):
         """
         Bloc résiduel autonome :
         - Convolutions avec BatchNorm + ReLU
@@ -53,7 +53,6 @@ class Res_Block(nn.Module):
         super().__init__()
         # Couches convolutives
         self.convs = nn.ModuleList([
-            # CORRECTION : Calculer le padding (k - 1) // 2 pour garantir le "Same Padding"
             nn.Conv2d(in_channels, out_channels, k, padding=(k - 1) // 2) 
             for k in kernel_sizes])
         
