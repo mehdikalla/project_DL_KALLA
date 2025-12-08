@@ -84,7 +84,7 @@ Loss/Accuracy curves saved in results/[model]/plots/
 Training logs saved in results/[model]/logs/
 
 **3. Testing** \
-When to run: After training. Reason: Loads the last saved version of the model weights and evaluates performance on the Test set.
+Loads the last saved version of the model weights and evaluates performance on the Test set.
 
 ```python
 Bash
