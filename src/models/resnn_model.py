@@ -2,6 +2,7 @@ import torch.nn as nn
 from .blocks import FC_Block, Res_Block 
 S = nn.Softmax(dim=1)
 
+# Classe principale du modèle ResNN
 class ResNN_model(nn.Module):
     def __init__(self, in_channels=2, num_classes=8):
         super().__init__()

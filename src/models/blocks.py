@@ -25,6 +25,7 @@ class Conv_Block(nn.Module):
         x = self.dropout(x)
         return x
 
+# Classe pour le bloc fully connected
 class FC_Block(nn.Module):
     def __init__(self, layer_sizes):
         """

@@ -2,6 +2,7 @@ import torch.nn as nn
 from .blocks import Conv_Block, FC_Block
 S = nn.Softmax(dim=1)
 
+# Classe principale du modèle CNN
 class CNN_model(nn.Module):
     def __init__(self, in_channels=1, num_classes=8):
         """
