@@ -1,12 +1,28 @@
 import os
 import torch
 import argparse
+import numpy as np
+import random
 
 from src.network import main_network 
 from src.utils.visualization import plot_loss_curve, plot_metrics_curve
 from src.utils.metrics import save_logs
 from dataset.preprocessing import preprocess_dataset, relabel
 
+def set_seed(seed=42):
+    """Fixe les graines aléatoires pour la reproductibilité."""
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed) 
+    
+    # Force PyTorch à être déterministe 
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    print(f"--- Seed fixée à {seed} ---")
+
+set_seed(42)
 
 def main():
     parser = argparse.ArgumentParser(description="Pipeline FMA-small")
