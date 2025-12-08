@@ -19,5 +19,4 @@ class ResNN_model(nn.Module):
         x = self.res_layers(x)
         x = x.view(x.size(0), -1)    # Aplatir (la dimension est maintenant 128)
         x = self.fc(x)
-        x = S(x)
         return x

@@ -23,5 +23,4 @@ class CNN_model(nn.Module):
         x = self.conv_layers(x)
         x = x.view(x.size(0), -1)  # Aplatir les tenseurs
         x = self.fc(x)
-        x = S(x)
         return x
