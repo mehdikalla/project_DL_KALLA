@@ -82,9 +82,9 @@ python main.py --mode train --model improved --epochs 50 --batch_size 64
 
 * Output:
 
-Weights saved in results/[model]/weights/ \
-Loss/Accuracy curves saved in results/[model]/plots/ \
-Training logs saved in results/[model]/logs/ \
+Weights saved in ```results/[model]/weights/``` \
+Loss and Accuracy curves saved in ```results/[model]/plots/``` \
+Training logs saved in ```results/[model]/logs/ ```
 
 **3. Testing** \
 Loads the last saved version of the model weights and evaluates performance on the Test set.
