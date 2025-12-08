@@ -8,9 +8,9 @@
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4 
 #SBATCH --mem=16G 
-#SBATCH --time=01:00:00        # Temps maximal pour l'entraînement (ajuster selon besoin)
-#SBATCH --output=/scratch/mkalla/project_DL_KALLA/results/logs/improved_train_%j.out # Chemin à AJUSTER
-#SBATCH --error=/scratch/mkalla/project_DL_KALLA/results/logs/improved_train_%j.err   # Chemin à AJUSTER
+#SBATCH --time=01:00:00        # Temps maximal pour l'entraînement
+#SBATCH --output=/scratch/mkalla/project_DL_KALLA/results/logs/improved_train_%j.out 
+#SBATCH --error=/scratch/mkalla/project_DL_KALLA/results/logs/improved_train_%j.err   
 
 # -------------------------------------------------------------
 # Configuration ENVIRONNEMENT

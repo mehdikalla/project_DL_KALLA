@@ -17,7 +17,7 @@ def main():
     parser.add_argument("--labels", type=str, default="dataset/data/labels.npy")
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--epochs", type=int, default=5)
-    parser.add_argument("--max_length", type=int, default=128)
+    parser.add_argument("--max_length", type=int, default=128) 
     parser.add_argument("--save_path", type=str, default="results")
 
     args = parser.parse_args()
