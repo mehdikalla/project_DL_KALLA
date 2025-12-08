@@ -29,10 +29,10 @@ project_DL_KALLA/
 
 ## Setup and Installation
 
-**1. Dependencies**
+**1. Dependencies** \
 Ensure you have the required Python libraries installed (PyTorch, Librosa, Pandas, Numpy, Matplotlib, Tqdm).
 
-**2. Data Setup**
+**2. Data Setup** \
 Before running any code, you must download the FMA dataset and place it in the metadata folder.
 
 * Download fma_small.zip and unzip it.
@@ -46,8 +46,8 @@ Before running any code, you must download the FMA dataset and place it in the m
 
 The main.py script is the central command center. It operates in three distinct modes: preprocess, train, and test.
 
-**1. Preprocessing**
-When to run: First time only. Reason: This command converts raw MP3 files into numerical tensors (Mel-Spectrograms and CQT) and saves them as .npy files for faster loading during training.
+**1. Preprocessing** \
+This command converts raw MP3 files into numerical tensors (Labels, Mel-Spectrograms and CQT) and saves them as .npy files for faster loading during training.
 
 ```python
 Bash
@@ -83,7 +83,7 @@ Weights saved in results/[model]/weights/
 Loss/Accuracy curves saved in results/[model]/plots/
 Training logs saved in results/[model]/logs/
 
-**3. Testing**
+**3. Testing** \
 When to run: After training. Reason: Loads the last saved version of the model weights and evaluates performance on the Test set.
 
 ```python
@@ -94,7 +94,7 @@ python main.py --mode test --model baseline
 python main.py --mode test --model improved
 ```
 
-## Visualization (Debug)
+## Visualization (Debug) \
 
 To verify that the data has been processed correctly (checking alignment between Mel-spectrograms and CQT), you can run:
 
