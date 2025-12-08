@@ -13,7 +13,7 @@ class main_network():
         elif model_name == 'improved' :
             self.model = ResNN_model().to(self.device)
         self.criterion = nn.CrossEntropyLoss()
-        self.optimizer = tc.optim.Adam(self.model.parameters(), lr=0.001, weight_decay=1e-4)
+        self.optimizer = tc.optim.Adam(self.model.parameters(), lr=0.001, weight_decay=2e-4)
         self.scheduler = tc.optim.lr_scheduler.StepLR(self.optimizer, step_size=10, gamma=0.9)
 
         # stockage des prédictions

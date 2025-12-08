@@ -5,12 +5,14 @@ from torch.utils.data import Dataset, DataLoader, random_split
 import numpy as np
 
 class FMADataset(Dataset):
-    # Accepte une liste de chemins de features (ou un seul chemin)
     def __init__(self, features_paths, labels_path, max_length=128, transform=None):
         """
-        features_paths: Liste des chemins vers les .npy features.
+        features_paths: Liste des chemins vers les .npy features (1 pour baseline, 2 pour improved).
         labels_path   : chemin vers labels.npy
+        max_length    : longueur temporelle des spectrograms (padding/truncation)
+        transform     : transformations optionnelles
         """
+        # S'assurer que features_paths est une liste
         if isinstance(features_paths, str):
             features_paths = [features_paths]
             
@@ -21,7 +23,7 @@ class FMADataset(Dataset):
         self.transform = transform
         self.num_channels = len(self.X_features)
 
-        # AJOUT : VÉRIFICATION DE LA CONSISTANCE DES TAILLES
+        # VÉRIFICATION DE LA CONSISTANCE DES TAILLES (Sécurité contre l'erreur Index out of bounds)
         label_size = len(self.y)
         for i, feature_set in enumerate(self.X_features):
             if len(feature_set) != label_size:
@@ -37,32 +39,33 @@ class FMADataset(Dataset):
         return len(self.y)
 
     def __getitem__(self, idx):
-        # L'erreur se produit ici si les tailles ne sont pas cohérentes
+        # Récupère l'échantillon pour chaque feature (Mel, Chroma...)
         feature_list = [feature_set[idx] for feature_set in self.X_features]
         label = self.y[idx]
         
         if self.num_channels == 1:
-            # Baseline: [128, max_length] -> [1, 128, max_length]
-            # Assurez-vous que le padding/truncation est RETIRÉ d'ici s'il est déjà fait en preprocessing
+            # Modèle Baseline (1 canal) : Ajoute la dimension du canal [128, 128] -> [1, 128, 128]
             spec = np.expand_dims(feature_list[0], axis=0) 
         else:
-            # Improved: Empile les 3 features -> [3, 128, max_length]
+            # Modèle Improved (2 canaux) : Empile les features [Mel, Chroma] -> [2, 128, 128]
             spec = np.stack(feature_list, axis=0) 
+
+        # Note: Le padding/truncation est supposé avoir été fait en preprocessing
 
         if self.transform:
             spec = self.transform(spec)
 
         return tc.tensor(spec, dtype=tc.float32), tc.tensor(label, dtype=tc.long)
 
-# Mise à jour de get_dataloaders
+
 def get_dataloaders(features_paths, labels_path, batch_size=32, val_split=0.1, test_split=0.1, max_length=128):
     """
-    Retourne des DataLoaders PyTorch pour train, val, test
+    Retourne des DataLoaders PyTorch pour train, val, test.
+    features_paths peut être un chemin (str) ou une liste de chemins (list).
     """
     
-    # La conversion de string en list est faite dans FMADataset.__init__
     dataset = FMADataset(features_paths, labels_path, max_length=max_length) 
-    
+
     # Calculer les tailles des splits
     total_size = len(dataset)
     test_size = int(total_size * test_split)
@@ -71,7 +74,7 @@ def get_dataloaders(features_paths, labels_path, batch_size=32, val_split=0.1, t
     # Calculer train_size en dernier pour prendre le reste
     train_size = total_size - val_size - test_size
 
-    # random_split fonctionne correctement si total_size est exact
+    # Utilise random_split pour diviser le Dataset
     train_set, val_set, test_set = random_split(dataset, [train_size, val_size, test_size])
 
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)

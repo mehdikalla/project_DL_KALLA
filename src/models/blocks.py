@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class Conv_Block(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size=3, padding=1, pool_size=2, dropout_prob=0.25):
+    def __init__(self, in_channels, out_channels, kernel_size=3, padding=1, pool_size=2, dropout_prob=0.4):
         """ 
         in_channels : nombre de canaux d'entrée
         out_channels : nombre de canaux de sortie
