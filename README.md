@@ -37,9 +37,9 @@ Before running any code, you must download the FMA dataset and place it in the m
 
 * Download fma_small.zip and unzip it.
 * Download fma_metadata.zip and extract tracks.csv.
-* Place them so the path looks exactly like this:
+* Place them so the path are set up as :
 
-  * metadata/fma_small/ (contains subfolders like 000/, 001/...)
+  * metadata/fma_small/
   * metadata/tracks.csv
 
 ## Usage (main.py)
