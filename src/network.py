@@ -14,7 +14,7 @@ class main_network():
             self.model = ResNN_model().to(self.device)
         self.criterion = nn.CrossEntropyLoss()
         self.optimizer = tc.optim.Adam(self.model.parameters(), lr=0.001, weight_decay=2e-4)
-        self.scheduler = tc.optim.lr_scheduler.StepLR(self.optimizer, step_size=10, gamma=0.9)
+        self.scheduler = tc.optim.lr_scheduler.StepLR(self.optimizer, step_size=5, gamma=0.5)
 
         # stockage des prédictions
         self.train_preds = None

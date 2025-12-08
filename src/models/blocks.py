@@ -43,7 +43,7 @@ class FC_Block(nn.Module):
         return x
     
 class Res_Block(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_sizes=(3,), padding=1, pool_size=2, dropout_prob=0.3):
+    def __init__(self, in_channels, out_channels, kernel_sizes=(3,), padding=1, pool_size=2, dropout_prob=0.5):
         """
         Bloc résiduel autonome :
         - Convolutions avec BatchNorm + ReLU
@@ -75,6 +75,7 @@ class Res_Block(nn.Module):
             x_sum +=bn(conv(x))  # somme des sorties multiscales
         x = F.relu(x_sum)
         x = tc.add(x,residual)
-        x = self.dropout(x)
+        x = F.relu(x)
         x = self.pool(x)
+        x = self.dropout(x)
         return x
