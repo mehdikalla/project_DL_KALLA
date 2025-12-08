@@ -60,7 +60,7 @@ python main.py --mode preprocess
 ```
 * Inputs: ```metadata/fma_small/``` and ```tracks.csv```.
 
-* Outputs: Saves ```mel_specs.npy```, ```cqt_specs.npy```, and ```labels.npy``` in dataset/data/.
+* Outputs: Saves ```mel_specs.npy```, ```cqt_specs.npy```, and ```labels.npy``` in ```dataset/data/```.
 
 **2. Training**
 
