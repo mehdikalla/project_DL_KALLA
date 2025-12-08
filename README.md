@@ -33,10 +33,10 @@ project_DL_KALLA/
 ## Setup and Installation
 
 **1. Dependencies** \
-Ensure you have the required Python libraries installed (PyTorch, Librosa, Pandas, Numpy, Matplotlib, Tqdm).
+Ensure that the required Python libraries are installed (PyTorch, Librosa, Pandas, Numpy, Matplotlib, Tqdm).
 
 **2. Data Setup** \
-Before running any code, you must download the FMA dataset and place it in the metadata folder.
+Before running the code, download the FMA dataset and place it in the metadata folder.
 
 * Download fma_small.zip and unzip it.
 * Download fma_metadata.zip and extract tracks.csv.
@@ -99,7 +99,7 @@ python main.py --mode test --model improved
 
 ## Visualization (Debug) 
 
-To verify that the data has been processed correctly (checking alignment between Mel-spectrograms and CQT), you can run:
+To verify that the data has been processed correctly (checking alignment between Mel-spectrograms and CQT), run:
 
 ```python
 Bash
