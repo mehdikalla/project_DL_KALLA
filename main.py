@@ -9,6 +9,7 @@ from src.utils.visualization import plot_loss_curve, plot_metrics_curve
 from src.utils.metrics import save_logs
 from dataset.preprocessing import preprocess_dataset, relabel
 
+# Fixer les graines aléatoires pour la reproductibilité
 def set_seed(seed=42):
     """Fixe les graines aléatoires pour la reproductibilité."""
     random.seed(seed)
@@ -22,7 +23,10 @@ def set_seed(seed=42):
 
 set_seed(42)
 
+# Fonction principale
 def main():
+
+    #--- Analyse des arguments ---
     parser = argparse.ArgumentParser(description="Pipeline FMA-small")
 
     parser.add_argument("--mode", type=str, choices=["preprocess", "train", "test"], required=True, help="Mode")
@@ -84,10 +88,11 @@ def main():
         feature_paths = [mel_path, cqt_path] 
     # -----------------------------------------------------------
 
-
+    # Initialisation du réseau
     net = main_network(MODEL_NAME, device) 
     net.create_loaders(feature_paths, args.labels, args.batch_size, args.max_length)
 
+    # Entraînement
     if args.mode == "train":
         os.makedirs(PLOTS_PATH, exist_ok=True)
         os.makedirs(LOGS_PATH, exist_ok=True)
@@ -109,6 +114,7 @@ def main():
         torch.save(net.model.state_dict(), WEIGHTS_FILE_PATH)
         print(f"Modèle sauvegardé : {WEIGHTS_FILE_PATH}")
 
+    # Test
     elif args.mode == "test":
         if not os.path.exists(WEIGHTS_FILE_PATH):
             raise FileNotFoundError(f"Poids introuvables : {WEIGHTS_FILE_PATH}")
