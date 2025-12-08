@@ -94,7 +94,7 @@ python main.py --mode test --model baseline
 python main.py --mode test --model improved
 ```
 
-## Visualization (Debug) \
+## Visualization (Debug) 
 
 To verify that the data has been processed correctly (checking alignment between Mel-spectrograms and CQT), you can run:
 
