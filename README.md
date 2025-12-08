@@ -38,16 +38,16 @@ Ensure that the required Python libraries are installed (PyTorch, Librosa, Panda
 **2. Data Setup** \
 Before running the code, download the FMA dataset and place it in the metadata folder.
 
-* Download fma_small.zip and unzip it.
-* Download fma_metadata.zip and extract tracks.csv.
+* Download ```fma_small.zip``` and unzip it.
+* Download ```fma_metadata.zip``` and extract tracks.csv.
 * Place them so the path are set up as :
 
-  * metadata/fma_small/
-  * metadata/tracks.csv
+  * ```metadata/fma_small/```
+  * ```metadata/tracks.csv```
 
 ## Usage (main.py)
 
-The main.py script is the central command center. It operates in three distinct modes: preprocess, train, and test.
+The ```main.py``` script is the central command center. It operates in three distinct modes: preprocess, train, and test.
 
 **1. Preprocessing** \
 This command converts raw MP3 files into numerical tensors (Labels, Mel-Spectrograms and CQT) and saves them as .npy files for faster loading during training.
@@ -58,9 +58,9 @@ Bash
 python main.py --mode preprocess
 
 ```
-* Input: metadata/fma_small/ and tracks.csv.
+* Inputs: ```metadata/fma_small/``` and ```tracks.csv```.
 
-* Output: Saves mel_specs.npy, cqt_specs.npy, and labels.npy in dataset/data/.
+* Outputs: Saves ```mel_specs.npy```, ```cqt_specs.npy```, and ```labels.npy``` in dataset/data/.
 
 **2. Training**
 
@@ -107,4 +107,4 @@ Bash
 python debug.py
 
 ```
-This will generate sample images in results/visualization/.
+This will generate sample images in ```results/visualization/```.
