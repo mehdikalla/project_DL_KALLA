@@ -21,6 +21,9 @@ project_DL_KALLA/
 │   └── visualization/      # Debug visualizations
 ├── src/
 │   ├── models/             # Neural network architectures (CNN, ResNet, Blocks)
+│   │   ├── blocks.py       # Contains the fundamental blocks of each model
+│   │   ├── cnn_model.py    # CNN model
+│   │   └── resnn_model.py  # ResNN model
 │   ├── utils/              # Metrics calculation and visualization tools
 │   └── network.py          # Training and evaluation loops
 ├── main.py                 # Main entry point for the pipeline
