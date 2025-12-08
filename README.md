@@ -1,2 +1,104 @@
-# project_DL_KALLA
-Deep Learning project 2025-ICE
+# Deep Learning Project: Music Genre Classification
+
+This project implements a Convolutional Neural Network (CNN) pipeline to classify music genres using the FMA (Free Music Archive) dataset. It features two distinct architectures: a **Baseline** model (CNN) and an **Improved** model (ResNet).
+
+## Project Structure
+
+The project is organized as follows:
+
+```plaintext
+project_DL_KALLA/
+├── dataset/
+│   ├── data_loader.py      # PyTorch Dataset class and DataLoader generation
+│   ├── preprocessing.py    # Logic to extract Mel-specs and CQT from MP3s
+│   └── data/               # Folder where processed .npy files will be saved
+├── metadata/               # Folder for raw dataset (must be populated manually)
+│   ├── fma_small/          # Directory containing the audio files (.mp3)
+│   └── tracks.csv          # Metadata file containing labels and genre info
+├── results/                # Output folder (auto-generated)
+│   ├── baseline/           # Logs, plots, and weights for the baseline model
+│   ├── improved/           # Logs, plots, and weights for the improved model
+│   └── visualization/      # Debug visualizations
+├── src/
+│   ├── models/             # Neural network architectures (CNN, ResNet, Blocks)
+│   ├── utils/              # Metrics calculation and visualization tools
+│   └── network.py          # Training and evaluation loops
+├── main.py                 # Main entry point for the pipeline
+├── debug.py                # Script to visualize input data (Sanity Check)
+└── run_*.slurm             # Slurm scripts for cluster execution
+```
+
+## Setup and Installation
+
+1. Dependencies
+Ensure you have the required Python libraries installed (PyTorch, Librosa, Pandas, Numpy, Matplotlib, Tqdm).
+
+2. Data Setup (Crucial Step)
+Before running any code, you must download the FMA dataset and place it in the metadata folder.
+
+* Download fma_small.zip and unzip it.
+* Download fma_metadata.zip and extract tracks.csv.
+* Place them so the path looks exactly like this:
+
+  * metadata/fma_small/ (contains subfolders like 000/, 001/...)
+  * metadata/tracks.csv
+
+## Usage (main.py)
+
+The main.py script is the central command center. It operates in three distinct modes: preprocess, train, and test.
+
+1. Preprocessing
+When to run: First time only. Reason: This command converts raw MP3 files into numerical tensors (Mel-Spectrograms and CQT) and saves them as .npy files for faster loading during training.
+
+Bash
+
+python main.py --mode preprocess
+
+Input: metadata/fma_small/ and tracks.csv.
+
+Output: Saves mel_specs.npy, cqt_specs.npy, and labels.npy in dataset/data/.
+
+2. Training
+
+
+Train the Baseline Model (1 Channel: Mel-Spec):
+
+```python
+Bash
+
+python main.py --mode train --model baseline --epochs 50 --batch_size 64
+```
+
+Train the Improved Model (2 Channels: Mel-Spec + CQT):
+```python
+Bash
+
+python main.py --mode train --model improved --epochs 50 --batch_size 64
+```
+
+Output:
+
+Weights saved in results/[model]/weights/
+Loss/Accuracy curves saved in results/[model]/plots/
+Training logs saved in results/[model]/logs/
+
+3. Testing
+When to run: After training. Reason: Loads the last saved version of the model weights and evaluates performance on the Test set.
+
+```python
+Bash
+
+python main.py --mode test --model baseline
+# OR
+python main.py --mode test --model improved
+```
+
+## Visualization (Debug)
+
+To verify that the data has been processed correctly (checking alignment between Mel-spectrograms and CQT), you can run:
+
+Bash
+
+python debug.py
+
+This will generate sample images in results/visualization/.
