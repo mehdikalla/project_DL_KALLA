@@ -24,8 +24,7 @@ project_DL_KALLA/
 │   ├── utils/              # Metrics calculation and visualization tools
 │   └── network.py          # Training and evaluation loops
 ├── main.py                 # Main entry point for the pipeline
-├── debug.py                # Script to visualize input data (Sanity Check)
-└── run_*.slurm             # Slurm scripts for cluster execution
+└── debug.py                # Script to visualize input data (Sanity Check)
 ```
 
 ## Setup and Installation
@@ -50,18 +49,20 @@ The main.py script is the central command center. It operates in three distinct 
 1. Preprocessing
 When to run: First time only. Reason: This command converts raw MP3 files into numerical tensors (Mel-Spectrograms and CQT) and saves them as .npy files for faster loading during training.
 
+```python
 Bash
 
 python main.py --mode preprocess
 
-Input: metadata/fma_small/ and tracks.csv.
+```
+* Input: metadata/fma_small/ and tracks.csv.
 
-Output: Saves mel_specs.npy, cqt_specs.npy, and labels.npy in dataset/data/.
+* Output: Saves mel_specs.npy, cqt_specs.npy, and labels.npy in dataset/data/.
 
 2. Training
 
 
-Train the Baseline Model (1 Channel: Mel-Spec):
+* Train the Baseline Model (1 Channel: Mel-Spec):
 
 ```python
 Bash
@@ -69,14 +70,14 @@ Bash
 python main.py --mode train --model baseline --epochs 50 --batch_size 64
 ```
 
-Train the Improved Model (2 Channels: Mel-Spec + CQT):
+* Train the Improved Model (2 Channels: Mel-Spec + CQT):
 ```python
 Bash
 
 python main.py --mode train --model improved --epochs 50 --batch_size 64
 ```
 
-Output:
+* Output:
 
 Weights saved in results/[model]/weights/
 Loss/Accuracy curves saved in results/[model]/plots/
@@ -97,8 +98,10 @@ python main.py --mode test --model improved
 
 To verify that the data has been processed correctly (checking alignment between Mel-spectrograms and CQT), you can run:
 
+```python
 Bash
 
 python debug.py
 
+```
 This will generate sample images in results/visualization/.
